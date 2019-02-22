@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="VM"
+            type="com.example.showmethebill.ui.generalworktypeeditor.GeneralWorkTypeEditorViewModel"/>
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/generalworktypeeditor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.generalworktypeeditor.GeneralWorkTypeEditorFragment">
+
+    <TextView
+        android:id="@+id/jobType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{VM.workType.WorkType}"
+        android:hint="@string/general_work_type_hint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/jobTypeId"
+        android:text="@{VM.workType.id}"
+        tools.text="1234"
+        app:layout_constraintTop_toTopOf="@id/jobType"
+        app:layout_constraintStart_toEndOf="@id/jobType"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/jobType"
+        app:layout_constraintStart_toStartOf="@id/jobType"
+        app:layout_constraintEnd_toEndOf="@id/jobType"
+        android:text="@string/general_work_type_editor_commit"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

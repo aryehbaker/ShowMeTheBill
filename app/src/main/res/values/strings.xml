@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ShowMeTheBill</string>
+    <string name="action_settings">Settings</string>
+    <string name="general_work_type_editor_commit">enter</string>
+    <string name="general_work_type_hint">put in general work type here</string>
+    <string name="update_button">Update</string>
+</resources>
