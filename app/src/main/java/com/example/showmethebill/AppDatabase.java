@@ -30,6 +30,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return sInstance;
     }
 
-    public abstract myDao myDao();
-
+    public abstract generalDao generalDao();
+    public abstract middleDao middleDao();
+    public abstract endDao endDao();
 }

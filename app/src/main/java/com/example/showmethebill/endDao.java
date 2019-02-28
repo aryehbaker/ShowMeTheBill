@@ -13,13 +13,13 @@ import androidx.room.Update;
 public interface endDao {
     @Query("SELECT id, middleId, workType, partsCost, laborCost FROM endWorkType"
             + " WHERE MIDDLEID = :id")
-    List<middleWorkType>getMatchingMiddleEndTypes(int id);
+    List<endWorkType>getMatchingMiddleEndTypes(int id);
 
     @Query("SELECT id, middleId, workType, partsCost, laborCost FROM endWorkType WHERE ID = :id")
-    middleWorkType getMatchingEndTypes(int id);
+    endWorkType getMatchingEndTypes(int id);
 
     @Query("SELECT id, middleId, workType, partsCost, laborCost FROM endWorkType")
-    List<middleWorkType>getAllEndTypes();
+    List<endWorkType>getAllEndTypes();
 
     @Insert
     void insertEndType(endWorkType... endWorkType);

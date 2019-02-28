@@ -10,7 +10,7 @@ public class GeneralWorkTypeEditorViewModel extends ViewModel {
     private LiveData<generalWorkType> workType;
 
        public GeneralWorkTypeEditorViewModel(AppDatabase database, int Id) {
-        workType = database.myDao().getAGeneralWorkType(Id);
+        workType = database.generalDao().getAGeneralWorkType(Id);
     }
 
     public LiveData<generalWorkType> getGeneralWorkType() {

@@ -16,11 +16,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.showmethebill.AppDatabase;
 import com.example.showmethebill.AppExecutors;
 import com.example.showmethebill.R;
 import com.example.showmethebill.generalWorkType;
+
+import java.util.Date;
 
 public class GeneralWorkTypeEditorFragment extends Fragment {
 
@@ -39,8 +42,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
     private static final String TAG = GeneralWorkTypeEditorFragment.class.getSimpleName();
     // Fields for views
     EditText mEditText;
-    EditText mId;
-    RadioGroup mRadioGroup;
+    TextView mId;
     Button mButton;
 
     private int mTaskId = DEFAULT_TASK_ID;
@@ -119,7 +121,9 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
         if (task == null) {
             return;
         }
-        General
+        mEditText.setText(task.WorkType);
+        mId.setText(task.id);
+
 
     }
 
@@ -129,62 +133,30 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
      */
     public void onSaveButtonClicked() {
         String description = mEditText.getText().toString();
-        int id = mId.getText();
+        String id = mId.getText().toString();
+        int Iid = Integer.parseInt(id);
         Date date = new Date();
 
-        final generalWorkType task = new generalWorkType(description, priority, date);
+        final generalWorkType task = new generalWorkType(description, date);
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 if (mTaskId == DEFAULT_TASK_ID) {
                     // insert new task
-                    mDb.generalDao().insertTask(task);
+                    mDb.generalDao().insertGeneralType(task);
                 } else {
                     //update task
                     task.setId(mTaskId);
-                    mDb.taskDao().updateTask(task);
+                    mDb.generalDao().updateGeneralType(task);
                 }
-                finish();
+                getActivity().finish();
             }
         });
     }
 
-    /**
-     * getPriority is called whenever the selected priority needs to be retrieved
-     */
-    public int getPriorityFromViews() {
-        int priority = 1;
-        int checkedId = ((RadioGroup) findViewById(R.id.radioGroup)).getCheckedRadioButtonId();
-        switch (checkedId) {
-            case R.id.radButton1:
-                priority = PRIORITY_HIGH;
-                break;
-            case R.id.radButton2:
-                priority = PRIORITY_MEDIUM;
-                break;
-            case R.id.radButton3:
-                priority = PRIORITY_LOW;
-        }
-        return priority;
-    }
 
-    /**
-     * setPriority is called when we receive a task from MainActivity
-     *
-     * @param priority the priority value
-     */
-    public void setPriorityInViews(int priority) {
-        switch (priority) {
-            case PRIORITY_HIGH:
-                ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.radButton1);
-                break;
-            case PRIORITY_MEDIUM:
-                ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.radButton2);
-                break;
-            case PRIORITY_LOW:
-                ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.radButton3);
-        }
-    }
+
+
 
 }
 

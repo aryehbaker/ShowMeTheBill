@@ -11,10 +11,10 @@ import androidx.room.Update;
 
 @Dao
 public interface generalDao {
-    @Query("SELECT id, WorkType FROM GENERALWORKTYPE")
+    @Query("SELECT id, WorkType,updated_at FROM GENERALWORKTYPE")
     List<generalWorkType> loadGeneralTypes();
 
-    @Query("SELECT id, WorkType FROM GENERALWORKTYPE WHERE ID = :id ")
+    @Query("SELECT id, WorkType,updated_at FROM GENERALWORKTYPE WHERE ID = :id ")
     LiveData<generalWorkType> getAGeneralWorkType(int id);
     @Insert
     void insertGeneralType(generalWorkType... generalWorkType);

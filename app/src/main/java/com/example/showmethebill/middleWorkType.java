@@ -11,6 +11,7 @@ import static androidx.room.ForeignKey.CASCADE;
                                         childColumns = "generalId",
                                         onDelete = CASCADE)
         )
+
 public class middleWorkType {
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -19,9 +20,9 @@ public class middleWorkType {
     public int generalId;
 
 
-    public middleWorkType(int id, String workType, float cost, int generalId) {
+    public middleWorkType(int id, String WorkType, float cost, int generalId) {
         this.id = id;
-        this.WorkType = workType;
+        this.WorkType = WorkType;
         this.cost = cost;
         this.generalId = generalId;
     }

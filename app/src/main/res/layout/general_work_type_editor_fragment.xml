@@ -14,7 +14,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.generalworktypeeditor.GeneralWorkTypeEditorFragment">
 
-    <TextView
+    <EditText
         android:id="@+id/jobType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/jobTypeId"
         android:text="@{VM.workType.id}"
-        tools.text="1234"
+        tools:text="1234"
         app:layout_constraintTop_toTopOf="@id/jobType"
         app:layout_constraintStart_toEndOf="@id/jobType"/>
     <Button
