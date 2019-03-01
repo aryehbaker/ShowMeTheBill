@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
-        <variable
-            name="VM"
-            type="com.example.showmethebill.ui.generalworktypeeditor.GeneralWorkTypeEditorViewModel"/>
-    </data>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/generalworktypeeditor"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data class ="com.example.showmethebill.databinding.GeneralWorkTypeEditorFragmentBinding">
+        <variable
+            name="VM"
+            type="com.example.showmethebill.generalWorkType"/>
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.generalworktypeeditor.GeneralWorkTypeEditorFragment">
+    android:layout_height="match_parent">
 
     <EditText
+
         android:id="@+id/jobType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{VM.workType.WorkType}"
+        android:inputType="text"
+        android:text="@{VM.WorkType}"
+        android:importantForAutofill="no"
         android:hint="@string/general_work_type_hint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/jobTypeId"
-        android:text="@{VM.workType.id}"
+        android:text="@{String.valueOf(VM.id)}"
         tools:text="1234"
         app:layout_constraintTop_toTopOf="@id/jobType"
         app:layout_constraintStart_toEndOf="@id/jobType"/>

@@ -1,5 +1,6 @@
 package com.example.showmethebill.ui.generalworktypeeditor;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -15,12 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.showmethebill.AppDatabase;
 import com.example.showmethebill.AppExecutors;
 import com.example.showmethebill.R;
+import com.example.showmethebill.databinding.GeneralWorkTypeEditorFragmentBinding;
 import com.example.showmethebill.generalWorkType;
 
 import java.util.Date;
@@ -44,6 +45,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
     EditText mEditText;
     TextView mId;
     Button mButton;
+    GeneralWorkTypeEditorFragmentBinding binding;
 
     private int mTaskId = DEFAULT_TASK_ID;
 
@@ -59,13 +61,19 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.general_work_type_editor_fragment, container, false);
+        binding =
+               DataBindingUtil.inflate(
+                inflater,R.layout.general_work_type_editor_fragment,container,false);
+        mViewModel = ViewModelProviders.of(this).get(GeneralWorkTypeEditorViewModel.class);
+
+        return binding.getRoot();
+
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(GeneralWorkTypeEditorViewModel.class);
         // TODO: Use the ViewModel
         mDb = AppDatabase.getInstance(getActivity().getApplicationContext());
 
@@ -80,7 +88,8 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
                 // populate the UI
                 mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAULT_TASK_ID);
 
-                 GeneralWorkTypeEditorVMFactory factory = new GeneralWorkTypeEditorVMFactory(mDb, mTaskId);
+                 GeneralWorkTypeEditorVMFactory factory = new GeneralWorkTypeEditorVMFactory(
+                         getActivity().getApplication(), mTaskId);
                  final GeneralWorkTypeEditorViewModel viewModel
                         = ViewModelProviders.of(this, factory).get(GeneralWorkTypeEditorViewModel.class);
 
@@ -121,8 +130,9 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
         if (task == null) {
             return;
         }
-        mEditText.setText(task.WorkType);
-        mId.setText(task.id);
+        binding.setVM(task);
+        /*mEditText.setText(task.WorkType);
+        mId.setText(task.id);*/
 
 
     }
