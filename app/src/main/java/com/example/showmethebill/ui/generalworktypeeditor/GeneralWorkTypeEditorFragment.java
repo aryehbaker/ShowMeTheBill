@@ -26,7 +26,7 @@ import com.example.showmethebill.generalWorkType;
 
 import java.util.Date;
 
-public class GeneralWorkTypeEditorFragment extends Fragment {
+public class GeneralWorkTypeEditorFragment extends Fragment implements View.OnClickListener {
 
     private GeneralWorkTypeEditorViewModel mViewModel;
     // Extra for the task ID to be received in the intent
@@ -65,7 +65,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
                DataBindingUtil.inflate(
                 inflater,R.layout.general_work_type_editor_fragment,container,false);
         mViewModel = ViewModelProviders.of(this).get(GeneralWorkTypeEditorViewModel.class);
-
+        binding.setFragment(this);
         return binding.getRoot();
 
 
@@ -102,6 +102,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
                 });
             }
         }
+//        initViews();
     }
 
     @Override
@@ -113,12 +114,12 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
      * initViews is called from onCreate to init the member variable views
      */
     private void initViews() {
-        mButton.setOnClickListener(new View.OnClickListener() {
+      /*  mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onSaveButtonClicked();
             }
-        });
+        });*/
     }
 
     /**
@@ -141,10 +142,10 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
      * onSaveButtonClicked is called when the "save" button is clicked.
      * It retrieves user input and inserts that new task data into the underlying database.
      */
-    public void onSaveButtonClicked() {
-        String description = mEditText.getText().toString();
-        String id = mId.getText().toString();
-        int Iid = Integer.parseInt(id);
+    public void onSaveButtonClicked(View view) {
+        String description = binding.jobType.getText().toString();
+        String ID = binding.jobTypeId.getText().toString();
+        mTaskId = Integer.parseInt(ID);
         Date date = new Date();
 
         final generalWorkType task = new generalWorkType(description, date);
@@ -165,9 +166,10 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
 
-
-
+    }
 }
 
 

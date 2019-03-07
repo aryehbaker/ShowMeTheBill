@@ -3,10 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <data class ="com.example.showmethebill.databinding.GeneralWorkTypeEditorFragmentBinding">
+    <data>
         <variable
             name="VM"
             type="com.example.showmethebill.generalWorkType"/>
+        <variable
+            name="fragment"
+            type="com.example.showmethebill.ui.generalworktypeeditor.GeneralWorkTypeEditorFragment"/>
+
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -38,6 +42,7 @@
         app:layout_constraintTop_toBottomOf="@id/jobType"
         app:layout_constraintStart_toStartOf="@id/jobType"
         app:layout_constraintEnd_toEndOf="@id/jobType"
+        android:onClick="@{(v)-> fragment.onSaveButtonClicked(v)}"
         android:text="@string/general_work_type_editor_commit"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
