@@ -3,22 +3,34 @@ package com.example.showmethebill;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.showmethebill.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
 
+public class MainActivity extends AppCompatActivity {
+    ActivityMainBinding binding;
+    RecyclerView recyclerView;
+   GeneralAdapter adapter;
+   Observer observer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
+        recyclerView = binding.reGeneral;
+        adapter = new GeneralAdapter();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -31,7 +43,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(addGeneralIntent);
             }
         });
-    }
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        final GeneralWorkTypeViewModel viewModel =
+                ViewModelProviders.of(this).get(GeneralWorkTypeViewModel.class);
+        observer = new Observer<List<generalWorkType>>() {
+            @Override
+            public void onChanged(List<generalWorkType> generalWorkTypes) {
+                if(generalWorkTypes != null && !generalWorkTypes.isEmpty()){
+                    adapter.setAdaptorList(generalWorkTypes);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
+        };
+        viewModel.getGeneralWorkType().observe(this, observer);
+     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

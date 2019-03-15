@@ -26,7 +26,7 @@ import com.example.showmethebill.generalWorkType;
 
 import java.util.Date;
 
-public class GeneralWorkTypeEditorFragment extends Fragment implements View.OnClickListener {
+public class GeneralWorkTypeEditorFragment extends Fragment {
 
     private GeneralWorkTypeEditorViewModel mViewModel;
     // Extra for the task ID to be received in the intent
@@ -34,9 +34,6 @@ public class GeneralWorkTypeEditorFragment extends Fragment implements View.OnCl
     // Extra for the task ID to be received after rotation
     public static final String INSTANCE_TASK_ID = "instanceTaskId";
     // Constants for priority
-    public static final int PRIORITY_HIGH = 1;
-    public static final int PRIORITY_MEDIUM = 2;
-    public static final int PRIORITY_LOW = 3;
     // Constant for default task id to be used when not in update mode
     private static final int DEFAULT_TASK_ID = -1;
     // Constant for logging
@@ -89,7 +86,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment implements View.OnCl
                 mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAULT_TASK_ID);
 
                  GeneralWorkTypeEditorVMFactory factory = new GeneralWorkTypeEditorVMFactory(
-                         getActivity().getApplication(), mTaskId);
+                         mDb, mTaskId);
                  final GeneralWorkTypeEditorViewModel viewModel
                         = ViewModelProviders.of(this, factory).get(GeneralWorkTypeEditorViewModel.class);
 
@@ -110,17 +107,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment implements View.OnCl
         outState.putInt(INSTANCE_TASK_ID, mTaskId);
         super.onSaveInstanceState(outState);
     }
-    /**
-     * initViews is called from onCreate to init the member variable views
-     */
-    private void initViews() {
-      /*  mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onSaveButtonClicked();
-            }
-        });*/
-    }
+
 
     /**
      * populateUI would be called to populate the UI when in update mode
@@ -145,7 +132,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment implements View.OnCl
     public void onSaveButtonClicked(View view) {
         String description = binding.jobType.getText().toString();
         String ID = binding.jobTypeId.getText().toString();
-        mTaskId = Integer.parseInt(ID);
+        final int id = Integer.parseInt(ID);
         Date date = new Date();
 
         final generalWorkType task = new generalWorkType(description, date);
@@ -157,7 +144,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment implements View.OnCl
                     mDb.generalDao().insertGeneralType(task);
                 } else {
                     //update task
-                    task.setId(mTaskId);
+                    task.setId(id);
                     mDb.generalDao().updateGeneralType(task);
                 }
                 getActivity().finish();
@@ -166,10 +153,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment implements View.OnCl
     }
 
 
-    @Override
-    public void onClick(View v) {
 
-    }
 }
 
 
