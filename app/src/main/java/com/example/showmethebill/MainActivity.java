@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.showmethebill.databinding.ActivityMainBinding;
+//import com.example.showmethebill.databinding.ContentMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,23 +15,31 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GeneralAdapter.OnGeneralClickListener {
+    private static final String TAG = "main";
     ActivityMainBinding binding;
-    RecyclerView recyclerView;
-   GeneralAdapter adapter;
-   Observer observer;
+    RecyclerView generalRecyclerView,middleRecyclerView,endRecyclerView;
+   GeneralAdapter generalAdapter;
+   GeneralAdapter.OnGeneralClickListener onGeneralClickListener;
+   MiddleAdapter middleAdapter;
+
+   Observer GeneralObserver;
+   Observer MiddleObserver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
-        recyclerView = binding.reGeneral;
-        adapter = new GeneralAdapter();
+        generalRecyclerView = binding.mcontent.reGeneral;
+        generalAdapter = new GeneralAdapter();
+        generalAdapter.setOnItemClickListener(onGeneralClickListener);
+        middleRecyclerView = binding.mcontent.reMiddle;
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -43,20 +52,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(addGeneralIntent);
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        generalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        middleRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        final GeneralWorkTypeViewModel viewModel =
+        final GeneralWorkTypeViewModel generalWorkTypeViewModel =
                 ViewModelProviders.of(this).get(GeneralWorkTypeViewModel.class);
-        observer = new Observer<List<generalWorkType>>() {
-            @Override
-            public void onChanged(List<generalWorkType> generalWorkTypes) {
-                if(generalWorkTypes != null && !generalWorkTypes.isEmpty()){
-                    adapter.setAdaptorList(generalWorkTypes);
-                    recyclerView.setAdapter(adapter);
-                }
+       GeneralObserver = (Observer<List<generalWorkType>>) generalWorkTypes -> {
+            if(generalWorkTypes != null && !generalWorkTypes.isEmpty()){
+                generalAdapter.setAdaptorList(generalWorkTypes);
+                generalRecyclerView.setAdapter(generalAdapter);
             }
         };
-        viewModel.getGeneralWorkType().observe(this, observer);
+        generalWorkTypeViewModel.getGeneralWorkType().observe(this, GeneralObserver);
      }
 
     @Override
@@ -79,5 +86,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(View view, generalWorkType item) {
+        Log.d(TAG, "onItemClick: "+ item.WorkType);
     }
 }

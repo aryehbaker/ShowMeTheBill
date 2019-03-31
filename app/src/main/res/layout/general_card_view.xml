@@ -6,29 +6,38 @@
         <variable
             name="generalWorkType"
             type="com.example.showmethebill.generalWorkType"/>
+        <variable
+            name="click"
+            type="com.example.showmethebill.MainViewController"/>
+
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:onClick="@{()-> click.onGeneralClicked(generalWorkType.id)}">
 
             <TextView
                 android:id="@+id/general_work_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{generalWorkType.WorkType}"
+                android:textSize="32sp"
                 tools:text="repair"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                                                            />
 
             <TextView
                 android:id="@+id/general_work_type_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="24sp"
                 android:text="@{Integer.toString(generalWorkType.id)}"
                 tools:text="12345"
                 app:layout_constraintStart_toEndOf="@id/general_work_type"

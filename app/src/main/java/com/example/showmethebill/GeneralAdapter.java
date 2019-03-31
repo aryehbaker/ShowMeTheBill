@@ -5,18 +5,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.showmethebill.databinding.GeneralCardViewBinding;
-import com.example.showmethebill.databinding.GeneralViewHolderBinding;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralViewHolder> {
-   public  List<? extends generalWorkType> mGeneralList;
-    @NonNull
+   private List<? extends generalWorkType> mGeneralList;
+   private OnGeneralClickListener mOnGeneralClickListener;
+   @NonNull
     @Override
     public GeneralAdapter.GeneralViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         GeneralCardViewBinding binding = DataBindingUtil
@@ -24,11 +23,15 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralV
                 R.layout.general_card_view,parent,false);
         return  new GeneralAdapter.GeneralViewHolder(binding);
     }
+    public void setOnItemClickListener(OnGeneralClickListener onGeneralClickListener) {
+        mOnGeneralClickListener = onGeneralClickListener;
+    }
+
 
     @Override
     public void onBindViewHolder(@NonNull GeneralAdapter.GeneralViewHolder holder, int position) {
-        holder.binding.setGeneralWorkType(mGeneralList.get(position));
-        holder.binding.executePendingBindings();
+        generalWorkType generalWorkType = mGeneralList.get(position);
+        holder.bind(generalWorkType, mOnGeneralClickListener);
     }
 
     @Override
@@ -41,8 +44,25 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralV
             super(binding.getRoot());
             this.binding = binding;
         }
+        public void bind (generalWorkType item, OnGeneralClickListener onGeneralClickListener) {
+            binding.setGeneralWorkType(item);
+            binding.executePendingBindings();
+            itemView.setOnClickListener(v -> {
+                if (onGeneralClickListener != null) {
+                    onGeneralClickListener.onItemClick(v, item);
+                }
+            });
+        }
     }
     public void setAdaptorList(List<generalWorkType>list){
-        mGeneralList = list;}
+        mGeneralList = list;
+    }
+    public void setMiddleAdaptor(int id){
+
+    }
+    public interface OnGeneralClickListener {
+        void onItemClick(View view, generalWorkType item);
+    }
 
 }
+

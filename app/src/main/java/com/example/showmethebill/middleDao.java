@@ -2,6 +2,7 @@ package com.example.showmethebill;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -15,10 +16,10 @@ public interface middleDao {
     List<middleWorkType>getMatchingGeneralMiddleTypes(int id);
 
     @Query("SELECT id, workType, cost, generalId FROM MIDDLEWORKTYPE WHERE ID = :id")
-    middleWorkType getMatchingMiddleTypes(int id);
+    LiveData<List<middleWorkType>> getMatchingMiddleTypes(int id);
 
     @Query("SELECT id, workType, cost, generalId FROM MIDDLEWORKTYPE")
-    List<middleWorkType>getAllMiddleTypes();
+    LiveData<List<middleWorkType>>getAllMiddleTypes();
 
     @Insert
     void insertMiddleType(middleWorkType... middleWorkType);
