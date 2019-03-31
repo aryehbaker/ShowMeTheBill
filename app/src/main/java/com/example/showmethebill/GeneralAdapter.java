@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralViewHolder> {
-   private List<? extends generalWorkType> mGeneralList;
+   private List<generalWorkType> mGeneralList;
    private OnGeneralClickListener mOnGeneralClickListener;
    @NonNull
     @Override
@@ -60,6 +60,7 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralV
     public void setMiddleAdaptor(int id){
 
     }
+    public List<generalWorkType> getGeneralWorkTypeList(){return mGeneralList; }
     public interface OnGeneralClickListener {
         void onItemClick(View view, generalWorkType item);
     }

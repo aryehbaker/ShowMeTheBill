@@ -7,11 +7,13 @@ import com.example.showmethebill.databinding.ActivityMainBinding;
 //import com.example.showmethebill.databinding.ContentMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements GeneralAdapter.OnGeneralClickListener {
     private static final String TAG = "main";
     ActivityMainBinding binding;
+    private AppDatabase mDb;
     RecyclerView generalRecyclerView,middleRecyclerView,endRecyclerView;
    GeneralAdapter generalAdapter;
    GeneralAdapter.OnGeneralClickListener onGeneralClickListener;
@@ -54,7 +57,25 @@ public class MainActivity extends AppCompatActivity implements GeneralAdapter.On
         });
         generalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         middleRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+             @Override
+             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                 return false;
+             }
 
+             @Override
+             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                 AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                     @Override
+                     public void run() {
+                         int position = viewHolder.getAdapterPosition();
+                         List<generalWorkType> tasks = generalAdapter.getGeneralWorkTypeList();
+                         mDb.generalDao().deleteGeneralType(tasks.get(position));
+                     }
+                 });
+             }
+         }).attachToRecyclerView(generalRecyclerView);
+        mDb = AppDatabase.getInstance(getApplicationContext());
         final GeneralWorkTypeViewModel generalWorkTypeViewModel =
                 ViewModelProviders.of(this).get(GeneralWorkTypeViewModel.class);
        GeneralObserver = (Observer<List<generalWorkType>>) generalWorkTypes -> {
