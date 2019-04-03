@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MiddleAdapter extends RecyclerView.Adapter<MiddleAdapter.MiddleViewHolder> {
-    public List<? extends middleWorkType> mMiddleList;
+    public List<middleWorkType> mMiddleList;
     @NonNull
     @Override
     public MiddleAdapter.MiddleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,4 +30,6 @@ public class MiddleAdapter extends RecyclerView.Adapter<MiddleAdapter.MiddleView
             super(itemView);
         }
     }
+    public List <middleWorkType> getMiddleWorkTypeList(){return  mMiddleList;}
+    public void setAdaptorList(List<middleWorkType> e){mMiddleList = e;}
 }

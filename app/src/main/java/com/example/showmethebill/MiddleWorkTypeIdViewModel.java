@@ -17,7 +17,7 @@ public class MiddleWorkTypeIdViewModel extends ViewModel {
 
 
 
-    public LiveData<List<middleWorkType>> getGeneralWorkType() {
+    public LiveData<List<middleWorkType>> getMiddleWorkTypeOfGeneralId() {
         return middleWorkTypeIdLiveData;
     }
 

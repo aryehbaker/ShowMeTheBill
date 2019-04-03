@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="java.lang.Integer" />
+        <variable
+            name="middle"
+            type="com.example.showmethebill.middleWorkType"/>
+
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,5 +24,61 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middle_worktype_label"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middleworktype"
+        app:layout_constraintTop_toBottomOf="@+id/middle_worktype_label"
+        app:layout_constraintStart_toStartOf="@+id/middle_worktype_label"
+        android:text="@{middle.WorkType}"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middle_id_label"
+        android:text="Id:"
+        app:layout_constraintStart_toStartOf="@+id/middleworktype"
+        app:layout_constraintTop_toBottomOf="@+id/middleworktype"
+       />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middleid"
+        app:layout_constraintTop_toBottomOf="@+id/middle_id_label"
+        app:layout_constraintStart_toStartOf="@+id/middle_id_label"
+        android:text="@{Integer.toString(middle.id)}"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middle_id_general_label"
+        app:layout_constraintTop_toTopOf="@+id/middleid"
+        app:layout_constraintStart_toStartOf="@+id/middleid"
+        android:text="general id:"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middleidgeneral"
+        app:layout_constraintTop_toBottomOf="@+id/middle_id_general_label"
+        app:layout_constraintStart_toStartOf="@+id/middle_id_general_label"
+        android:text="@{Integer.toString(middle.generalId)}"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middle_worktype_cost_label"
+        android:text="Cost:"
+        app:layout_constraintTop_toBottomOf="@+id/middleidgeneral"
+        app:layout_constraintStart_toStartOf="@+id/middleidgeneral"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/middle_worktype_cost_label"
+        app:layout_constraintStart_toStartOf="@+id/middle_worktype_cost_label"
+        android:text="@{String.valueOf(middle.cost)}"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
