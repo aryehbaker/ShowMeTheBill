@@ -5,13 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.showmethebill.databinding.GeneralCardViewBinding;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.showmethebill.databinding.GeneralCardViewBinding;
 
 public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralViewHolder> {
    private List<generalWorkType> mGeneralList;
@@ -27,10 +28,7 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralV
         GeneralCardViewBinding binding = DataBindingUtil
         .inflate(LayoutInflater.from(mContext),
                 R.layout.general_card_view,parent,false);
-        return  new GeneralAdapter.GeneralViewHolder(binding);
-    }
-    public void setOnItemClickListener(OnGeneralClickListener onGeneralClickListener) {
-        mOnGeneralClickListener = onGeneralClickListener;
+       return new GeneralViewHolder(binding);
     }
 
 

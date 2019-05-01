@@ -13,10 +13,10 @@ import androidx.room.Update;
 public interface middleDao {
 
     @Query("SELECT id, workType, cost, generalId FROM MIDDLEWORKTYPE WHERE GENERALID = :id")
-    List<middleWorkType>getMatchingGeneralMiddleTypes(int id);
+    LiveData<List<middleWorkType>>getMatchingGeneralMiddleTypes(int id);
 
     @Query("SELECT id, workType, cost, generalId FROM MIDDLEWORKTYPE WHERE ID = :id")
-    LiveData<List<middleWorkType>> getMatchingMiddleTypes(int id);
+    LiveData<middleWorkType> getMatchingMiddleTypes(int id);
 
     @Query("SELECT id, workType, cost, generalId FROM MIDDLEWORKTYPE")
     LiveData<List<middleWorkType>>getAllMiddleTypes();

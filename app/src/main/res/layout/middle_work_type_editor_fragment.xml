@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <import type="java.lang.Integer" />
         <variable
             name="middle"
             type="com.example.showmethebill.middleWorkType"/>
+        <variable
+            name="fragment"
+            type="com.example.showmethebill.ui.middleworktypeeditor.MiddleWorkTypeEditorFragment"/>
 
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -74,11 +76,18 @@
         app:layout_constraintTop_toBottomOf="@+id/middleidgeneral"
         app:layout_constraintStart_toStartOf="@+id/middleidgeneral"/>
     <EditText
+        android:id="@+id/middle_worktype_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/middle_worktype_cost_label"
         app:layout_constraintStart_toStartOf="@+id/middle_worktype_cost_label"
         android:text="@{String.valueOf(middle.cost)}"/>
+    <Button
+        android:id="@+id/middle_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/middle_worktype_cost"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

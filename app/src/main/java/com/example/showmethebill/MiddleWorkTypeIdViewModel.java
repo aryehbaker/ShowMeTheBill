@@ -12,7 +12,7 @@ public class MiddleWorkTypeIdViewModel extends ViewModel {
     public MiddleWorkTypeIdViewModel(AppDatabase database, int id){
 
         middleWorkTypeIdLiveData =
-                database.middleDao().getMatchingMiddleTypes(id);
+                database.middleDao().getMatchingGeneralMiddleTypes(id);
     }
 
 

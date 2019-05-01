@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity
 
     public void onGeneralItemClick(View view, generalWorkType item) {
         Log.d(TAG, "onItemClick: "+ item.WorkType);
-        Toast.makeText(getApplicationContext(),"Hello Javatpoint", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"you clicked "+item.WorkType, Toast.LENGTH_LONG).show();
         setFab(FabStyle.MIDDLE);
         MiddleWorkTypeIdVmFactory factory = new MiddleWorkTypeIdVmFactory(mDb,item.id);
         final MiddleWorkTypeIdViewModel viewModel =
@@ -146,6 +146,11 @@ public class MainActivity extends AppCompatActivity
             if(middleWorkTypes != null && !middleWorkTypes.isEmpty()){
                 middleAdapter.setAdaptorList(middleWorkTypes);
                 middleRecyclerView.setAdapter(generalAdapter);
+            }
+            else{
+                Intent intent1 = new Intent(MainActivity.this,
+                        MiddleWorkTypeEditor.class);
+                startActivity(intent1);
             }
         };
         viewModel.getMiddleWorkTypeOfGeneralId().observe(this, MiddleObserver);
