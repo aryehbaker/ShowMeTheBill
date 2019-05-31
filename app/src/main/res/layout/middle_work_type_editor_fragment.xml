@@ -17,33 +17,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.middleworktypeeditor.MiddleWorkTypeEditorFragment">
 
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MiddleWorkTypeEditorFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/middle_worktype_label"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="worktype"/>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/middleworktype"
         app:layout_constraintTop_toBottomOf="@+id/middle_worktype_label"
         app:layout_constraintStart_toStartOf="@+id/middle_worktype_label"
+        android:padding="4dp"
         android:text="@{middle.WorkType}"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/middle_id_label"
         android:text="Id:"
+        android:padding="4dp"
         app:layout_constraintStart_toStartOf="@+id/middleworktype"
         app:layout_constraintTop_toBottomOf="@+id/middleworktype"
        />
@@ -51,6 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/middleid"
+        android:padding="4dp"
         app:layout_constraintTop_toBottomOf="@+id/middle_id_label"
         app:layout_constraintStart_toStartOf="@+id/middle_id_label"
         android:text="@{Integer.toString(middle.id)}"/>
@@ -58,13 +54,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/middle_id_general_label"
-        app:layout_constraintTop_toTopOf="@+id/middleid"
+        app:layout_constraintTop_toBottomOf="@+id/middleid"
         app:layout_constraintStart_toStartOf="@+id/middleid"
         android:text="general id:"/>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/middleidgeneral"
+        android:padding="4dp"
         app:layout_constraintTop_toBottomOf="@+id/middle_id_general_label"
         app:layout_constraintStart_toStartOf="@+id/middle_id_general_label"
         android:text="@{Integer.toString(middle.generalId)}"/>
@@ -79,6 +76,7 @@
         android:id="@+id/middle_worktype_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="4dp"
         app:layout_constraintTop_toBottomOf="@+id/middle_worktype_cost_label"
         app:layout_constraintStart_toStartOf="@+id/middle_worktype_cost_label"
         android:text="@{String.valueOf(middle.cost)}"/>
@@ -86,6 +84,7 @@
         android:id="@+id/middle_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         app:layout_constraintTop_toBottomOf="@+id/middle_worktype_cost"
         app:layout_constraintStart_toStartOf="parent"/>
 

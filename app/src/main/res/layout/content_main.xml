@@ -17,15 +17,14 @@
             android:id="@+id/second_guide"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.666"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/re_general"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/first_guide"
-            >
-
+            app:layout_constraintEnd_toStartOf="@id/first_guide">
         </androidx.recyclerview.widget.RecyclerView>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -34,11 +33,7 @@
             android:id="@+id/re_middle"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="@id/first_guide"
-            app:layout_constraintEnd_toStartOf="@id/second_guide"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
-
-
+            app:layout_constraintEnd_toStartOf="@id/second_guide">
         </androidx.recyclerview.widget.RecyclerView>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -47,9 +42,7 @@
             android:id="@+id/re_end"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="@id/second_guide"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+            app:layout_constraintEnd_toEndOf="parent">
         </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
