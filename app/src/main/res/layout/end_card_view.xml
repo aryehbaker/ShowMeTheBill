@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">  <data>
+    <variable
+        name="endType"
+        type="com.example.showmethebill.endWorkType"/>
+
+</data>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/end_work_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{endType.WorkType}"
+        android:textSize="24sp"
+        tools:text="repair"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/end_work_type_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="@{Integer.toString(endType.id)}"
+        tools:text="12345"
+        app:layout_constraintStart_toStartOf="@id/end_work_type"
+        app:layout_constraintTop_toBottomOf="@id/end_work_type"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/end_cost"
+        android:textSize="12sp"
+        android:text="@{String.valueOf(endType.cost)}"
+        app:layout_constraintStart_toStartOf="@id/end_work_type"
+        app:layout_constraintTop_toBottomOf="@id/end_work_type_id"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/end_middle_id"
+        android:textSize="12sp"
+        android:text="@{String.valueOf(endType.middleId)}"
+        app:layout_constraintStart_toStartOf="@id/end_work_type"
+        app:layout_constraintTop_toBottomOf="@id/end_cost"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+</layout>

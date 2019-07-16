@@ -50,8 +50,9 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralV
             itemView.setOnClickListener(this);
         }
         public void bind (generalWorkType item) {
-            binding.setGeneralWorkType(item);
+            binding.setGeneralType(item);
             binding.executePendingBindings();
+
         }
 
         @Override

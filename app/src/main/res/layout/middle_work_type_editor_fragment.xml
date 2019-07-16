@@ -85,8 +85,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
+        android:onClick="@{(v)-> fragment.onSaveButtonClicked(v)}"
         app:layout_constraintTop_toBottomOf="@+id/middle_worktype_cost"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/general_work_type_editor_commit"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

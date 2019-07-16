@@ -16,9 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.showmethebill.AppDatabase;
+import com.example.showmethebill.AppExecutors;
 import com.example.showmethebill.R;
 import com.example.showmethebill.databinding.MiddleWorkTypeEditorFragmentBinding;
-import com.example.showmethebill.middleWorkType;
+
+import java.util.Date;
+
+
 
 public class MiddleWorkTypeEditorFragment extends Fragment {
 
@@ -81,9 +85,9 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
                 final MiddleWorkTypeEditorViewModel viewModel
                         = ViewModelProviders.of(this, factory).get(MiddleWorkTypeEditorViewModel.class);
 
-                viewModel.getMiddleWorkType().observe(this, new Observer<middleWorkType>() {
+                viewModel.getMiddleWorkType().observe(this, new Observer<com.example.showmethebill.middleWorkType>() {
                     @Override
-                    public void onChanged(@Nullable middleWorkType taskEntry) {
+                    public void onChanged(@Nullable com.example.showmethebill.middleWorkType taskEntry) {
                         viewModel.getMiddleWorkType().removeObserver(this);
                         populateUI(taskEntry);
                     }
@@ -104,7 +108,7 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
      *
      * @param task the taskEntry to populate the UI
      */
-    private void populateUI(middleWorkType task) {
+    private void populateUI(com.example.showmethebill.middleWorkType task) {
         if (task == null) {
             return;
         }
@@ -113,6 +117,31 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
         mId.setText(task.id);*/
 
 
+    }
+    public void onSaveButtonClicked(View view) {
+        String description = binding.middleworktype.getText().toString();
+        String ID = binding.middleid.getText().toString();
+        final int id = Integer.parseInt(ID);
+        String Cost = binding.middleWorktypeCost.getText().toString();
+        float cost = Float.valueOf(Cost);
+        int  generalId = Integer.valueOf(binding.middleidgeneral.getText().toString());
+        Date date = new Date();
+
+        final com.example.showmethebill.middleWorkType task = new com.example.showmethebill.middleWorkType(id, description,cost,generalId);
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                if (mTaskId == DEFAULT_TASK_ID) {
+                    // insert new task
+                    mDb.middleDao().insertMiddleType(task);
+                } else {
+                    //update task
+                    task.setId(id);
+                    mDb.middleDao().updateMiddleType(task);
+                }
+                getActivity().finish();
+            }
+        });
     }
 
 }

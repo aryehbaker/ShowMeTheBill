@@ -1,4 +1,4 @@
-package com.example.showmethebill.ui.generalworktypeeditor;
+package com.example.showmethebill.ui.endworktypeeditor;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -14,22 +14,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.showmethebill.AppDatabase;
 import com.example.showmethebill.AppExecutors;
 import com.example.showmethebill.R;
-import com.example.showmethebill.databinding.GeneralWorkTypeEditorFragmentBinding;
-import com.example.showmethebill.generalWorkType;
+import com.example.showmethebill.databinding.EndWorkTypeEditorFragmentBinding;
+import com.example.showmethebill.endWorkType;
+
 
 import java.util.Date;
 
-public class GeneralWorkTypeEditorFragment extends Fragment {
+public class EndWorkTypeEditorFragment extends Fragment {
 
-    private GeneralWorkTypeEditorViewModel mViewModel;
-    // Extra for the task ID to be received in the intent
+    private EndWorkTypeEditorViewModel mViewModel;
     public static final String EXTRA_TASK_ID = "extraTaskId";
     // Extra for the task ID to be received after rotation
     public static final String INSTANCE_TASK_ID = "instanceTaskId";
@@ -37,12 +34,14 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
     // Constant for default task id to be used when not in update mode
     private static final int DEFAULT_TASK_ID = -1;
     // Constant for logging
-    private static final String TAG = GeneralWorkTypeEditorFragment.class.getSimpleName();
-    // Fields for views
-    EditText mEditText;
-    TextView mId;
-    Button mButton;
-    GeneralWorkTypeEditorFragmentBinding binding;
+    private static final String TAG = EndWorkTypeEditorFragment.class.getSimpleName();
+
+
+    public static EndWorkTypeEditorFragment newInstance() {
+        return new EndWorkTypeEditorFragment();
+    }
+
+    EndWorkTypeEditorFragmentBinding binding;
 
     private int mTaskId = DEFAULT_TASK_ID;
 
@@ -50,27 +49,23 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
     private AppDatabase mDb;
 
 
-    public static GeneralWorkTypeEditorFragment newInstance() {
-        return new GeneralWorkTypeEditorFragment();
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding =
-               DataBindingUtil.inflate(
-                inflater,R.layout.general_work_type_editor_fragment,container,false);
-        mViewModel = ViewModelProviders.of(this).get(GeneralWorkTypeEditorViewModel.class);
+                DataBindingUtil.inflate(
+                        inflater, R.layout.middle_work_type_editor_fragment, container, false);
+
+        mViewModel = ViewModelProviders.of(this).get(EndWorkTypeEditorViewModel.class);
         binding.setFragment(this);
         return binding.getRoot();
-
-
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         // TODO: Use the ViewModel
         mDb = AppDatabase.getInstance(getActivity().getApplicationContext());
 
@@ -80,20 +75,21 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
         if (intent != null && intent.hasExtra(EXTRA_TASK_ID)) {
-            binding.generalEditorSaveButton.setText(R.string.update_button);
+            binding.endAdd.setText(R.string.update_button);
             if (mTaskId == DEFAULT_TASK_ID) {
                 // populate the UI
                 mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAULT_TASK_ID);
 
-                 GeneralWorkTypeEditorVMFactory factory = new GeneralWorkTypeEditorVMFactory(
-                         mDb, mTaskId);
-                 final GeneralWorkTypeEditorViewModel viewModel
-                        = ViewModelProviders.of(this, factory).get(GeneralWorkTypeEditorViewModel.class);
+                EndWorkTypeEditorVMFactory factory = new EndWorkTypeEditorVMFactory(
+                        mDb, mTaskId);
+                final EndWorkTypeEditorViewModel viewModel
+                        = ViewModelProviders.of(this, factory)
+                        .get(EndWorkTypeEditorViewModel.class);
 
-                viewModel.getGeneralWorkType().observe(this, new Observer<generalWorkType>() {
+                viewModel.getEndWorkType().observe(this, new Observer<endWorkType>() {
                     @Override
-                    public void onChanged(@Nullable generalWorkType taskEntry) {
-                        viewModel.getGeneralWorkType().removeObserver(this);
+                    public void onChanged(@Nullable endWorkType taskEntry) {
+                        viewModel.getEndWorkType().removeObserver(this);
                         populateUI(taskEntry);
                     }
                 });
@@ -114,46 +110,40 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
      *
      * @param task the taskEntry to populate the UI
      */
-    private void populateUI(generalWorkType task) {
+    private void populateUI(endWorkType task) {
         if (task == null) {
             return;
         }
-        binding.setVM(task);
+        binding.setEnd(task);
         /*mEditText.setText(task.WorkType);
         mId.setText(task.id);*/
 
 
     }
 
-    /**
-     * onSaveButtonClicked is called when the "save" button is clicked.
-     * It retrieves user input and inserts that new task data into the underlying database.
-     */
     public void onSaveButtonClicked(View view) {
-        String description = binding.jobType.getText().toString();
-        String ID = binding.jobTypeId.getText().toString();
+        String description = binding.endworktype.getText().toString();
+        String ID = binding.endid.getText().toString();
         final int id = Integer.parseInt(ID);
+        String Cost = binding.endWorktypeCost.getText().toString();
+        float cost = Float.valueOf(Cost);
+        int generalId = Integer.valueOf(binding.endidmiddle.getText().toString());
         Date date = new Date();
 
-        final generalWorkType task = new generalWorkType(description, date);
+        final endWorkType task = new endWorkType(id, description, cost);
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 if (mTaskId == DEFAULT_TASK_ID) {
                     // insert new task
-                    mDb.generalDao().insertGeneralType(task);
+                    mDb.endDao().insertEndType(task);
                 } else {
                     //update task
                     task.setId(id);
-                    mDb.generalDao().updateGeneralType(task);
+                    mDb.endDao().updateEndType(task);
                 }
                 getActivity().finish();
             }
         });
     }
-
-
-
 }
-
-

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="end"
+            type="com.example.showmethebill.endWorkType"/>
+        <variable
+            name="fragment"
+            type="com.example.showmethebill.ui.endworktypeeditor.EndWorkTypeEditorFragment"/>
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/endworktypeeditor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.endworktypeeditor.EndWorkTypeEditorFragment">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/end_worktype_label"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="worktype"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endworktype"
+            app:layout_constraintTop_toBottomOf="@+id/end_worktype_label"
+            app:layout_constraintStart_toStartOf="@+id/end_worktype_label"
+            android:padding="4dp"
+            android:text="@{end.WorkType}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/end_id_label"
+            android:text="Id:"
+            android:padding="4dp"
+            app:layout_constraintStart_toStartOf="@+id/endworktype"
+            app:layout_constraintTop_toBottomOf="@+id/endworktype"
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endid"
+            android:padding="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/end_id_label"
+            app:layout_constraintStart_toStartOf="@+id/end_id_label"
+            android:text="@{Integer.toString(end.id)}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/end_id_middle_label"
+            app:layout_constraintTop_toBottomOf="@+id/endid"
+            app:layout_constraintStart_toStartOf="@+id/endid"
+            android:text="middle id:"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/endidmiddle"
+            android:padding="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/end_id_middle_label"
+            app:layout_constraintStart_toStartOf="@+id/end_id_middle_label"
+            android:text="@{Integer.toString(end.middleId)}"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/end_worktype_cost_label"
+            android:text="Cost:"
+            app:layout_constraintTop_toBottomOf="@+id/endidmiddle"
+            app:layout_constraintStart_toStartOf="@+id/endidmiddle"/>
+        <EditText
+            android:id="@+id/end_worktype_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/end_worktype_cost_label"
+            app:layout_constraintStart_toStartOf="@+id/end_worktype_cost_label"
+            android:text="@{String.valueOf(end.cost)}"/>
+        <Button
+            android:id="@+id/end_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:onClick="@{(v)-> fragment.onSaveButtonClicked(v)}"
+            app:layout_constraintTop_toBottomOf="@+id/end_worktype_cost"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/general_work_type_editor_commit"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

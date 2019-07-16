@@ -1,52 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<androidx.constraintlayout.widget.ConstraintLayout
-     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/first_guide"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.333"/>
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/second_guide"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.666"/>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="FragVM"
+            type="com.example.showmethebill.BillStarterViewModel" />
+        <variable
+            name="GeneralVM"
+        type="com.example.showmethebill.GeneralWorkTypeViewModel"
+            />
+        <variable
+            name="MiddleVM"
+            type="com.example.showmethebill.MiddleWorkTypeIdViewModel" />
+        <variable
+            name="EndVM"
+            type="com.example.showmethebill.EndWorkTypeIdViewModel"  />
+        <import type="com.example.showmethebill.BillStarterViewModel.ActiveRecycler" />
+        <import type="android.view.View" />
+        </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/re_general"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/first_guide"
-        >
+        android:visibility="@{FragVM.getFAB == ActiveRecycler.GENERAL?View.VISIBLE:View.GONE}"
 
+        android:id="@+id/re_general"
+    >
     </androidx.recyclerview.widget.RecyclerView>
+    <include layout="@layout/general_card_view"
+        android:visibility="@{FragVM.getFAB!= ActiveRecycler.GENERAL?View.VISIBLE:View.GONE}"
+        bind:generalType = "@{GeneralVM.getGeneralOneLiveData}"
+    android:id="@+id/one_general"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/re_middle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="@id/first_guide"
-        app:layout_constraintEnd_toStartOf="@id/second_guide"
+        android:visibility="@{FragVM.getFAB == ActiveRecycler.MIDDLE?View.VISIBLE:View.GONE}"
+
         >
 
 
     </androidx.recyclerview.widget.RecyclerView>
+    <include layout="@layout/middle_card_view"
+        android:visibility="@{FragVM.getFAB == ActiveRecycler.END?View.VISIBLE:View.GONE}"
+        bind:middleType="MiddleVM.getMiddleOneLiveData"
+
+        android:id="@+id/one_middle"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/re_end"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="@id/second_guide"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="@{FragVM.getFAB == ActiveRecycler.END?View.VISIBLE:View.GONE}"
+
         >
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -55,10 +67,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+         android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
 </layout>

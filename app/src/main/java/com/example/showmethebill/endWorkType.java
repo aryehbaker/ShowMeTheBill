@@ -2,6 +2,7 @@ package com.example.showmethebill;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -14,16 +15,21 @@ public class endWorkType {
    public int id;
    public int middleId;
    public String workType;
-   public float partsCost;
-   public float laborCost;
+   public float cost;
 
 
-    public endWorkType(int id, int middleId, String workType, float partsCost, float laborCost) {
+    public endWorkType(int id, int middleId, String workType, float cost) {
         this.id = id;
         this.middleId = middleId;
         this.workType = workType;
-        this.partsCost = partsCost;
-        this.laborCost = laborCost;
+        this.cost = cost;
+
+    }
+    @Ignore
+    public endWorkType( int middleId,String workType,Float cost){
+        this.middleId = middleId;
+        this.workType = workType;
+        this.cost = cost;
     }
 
     public int getId() {
@@ -50,19 +56,13 @@ public class endWorkType {
         this.workType = workType;
     }
 
-    public float getPartsCost() {
-        return partsCost;
+
+    public void setCost(float cost) {
+        this.cost = cost;
     }
 
-    public void setPartsCost(float partsCost) {
-        this.partsCost = partsCost;
+    public float getCost() {
+        return cost;
     }
 
-    public float getLaborCost() {
-        return laborCost;
-    }
-
-    public void setLaborCost(float laborCost) {
-        this.laborCost = laborCost;
-    }
-}
+ }

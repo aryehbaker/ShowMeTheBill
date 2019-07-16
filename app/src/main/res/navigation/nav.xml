@@ -9,5 +9,47 @@
         android:id="@+id/billStarterFragment"
         android:name="com.example.showmethebill.BillStarterFragment"
         android:label="fragment_starter_bill"
-        tools:layout="@layout/fragment_starter_bill" />
+        tools:layout="@layout/fragment_starter_bill" >
+        <action
+            android:id="@+id/action_billStarterFragment_to_generalWorkTypeEditorFragment"
+            app:destination="@id/generalWorkTypeEditorFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_billStarterFragment_to_middleWorkTypeEditorFragment"
+            app:destination="@id/middleWorkTypeEditorFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/middleWorkTypeEditorFragment"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/generalWorkTypeEditorFragment"
+        android:name="com.example.showmethebill.ui.generalworktypeeditor.GeneralWorkTypeEditorFragment"
+        android:label="general_work_type_editor_fragment"
+        tools:layout="@layout/general_work_type_editor_fragment" >
+        <action
+            android:id="@+id/action_generalWorkTypeEditorFragment_pop"
+            app:popUpTo="@id/generalWorkTypeEditorFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="task_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/middleWorkTypeEditorFragment"
+        android:name="com.example.showmethebill.ui.middleworktypeeditor.MiddleWorkTypeEditorFragment"
+        android:label="middle_work_type_editor_fragment"
+        tools:layout="@layout/middle_work_type_editor_fragment" />
+    <fragment
+        android:id="@+id/endViewTypeEditorFragment"
+        android:name="com.example.showmethebill.ui.endworktypeeditor.EndWorkTypeEditorFragment"
+        android:label="end_view_type_editor_fragment"
+        tools:layout="@layout/end_work_type_editor_fragment" />
 </navigation>

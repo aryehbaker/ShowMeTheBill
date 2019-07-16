@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="generalType"
+            type="com.example.showmethebill.middleWorkType"/>
+        <variable
+            name="controller"
+            type="com.example.showmethebill.BillStarterViewModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <include layout = "@layout/general_card_view"
+            android:id="@+id/middle_one"/>
+    </LinearLayout>
+</layout>

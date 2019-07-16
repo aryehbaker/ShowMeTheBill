@@ -4,15 +4,22 @@ import java.util.List;
 
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 public class MiddleWorkTypeIdViewModel extends ViewModel {
     private LiveData<List<middleWorkType>> middleWorkTypeIdLiveData;
-    public ObservableField<middleWorkType> oWorkType;
-    public MiddleWorkTypeIdViewModel(AppDatabase database, int id){
+    private MutableLiveData <Integer> generalId = new MutableLiveData<>();
 
-        middleWorkTypeIdLiveData =
-                database.middleDao().getMatchingGeneralMiddleTypes(id);
+    public ObservableField<middleWorkType> oWorkType;
+    public MiddleWorkTypeIdViewModel(AppDatabase database){
+
+        middleWorkTypeIdLiveData = Transformations.switchMap(generalId,
+                c -> database.middleDao().getMatchingGeneralMiddleTypes(c));
+
+       /* middleWorkTypeIdLiveData =
+                database.middleDao().getMatchingGeneralMiddleTypes(id);*/
     }
 
 
@@ -20,5 +27,6 @@ public class MiddleWorkTypeIdViewModel extends ViewModel {
     public LiveData<List<middleWorkType>> getMiddleWorkTypeOfGeneralId() {
         return middleWorkTypeIdLiveData;
     }
+    public void setGeneralId (int id){generalId.setValue(id);}
 
 }

@@ -1,16 +1,16 @@
-package com.example.showmethebill.ui.middleworktypeeditor;
+package com.example.showmethebill.ui.endworktypeeditor;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.showmethebill.AppDatabase;
+import com.example.showmethebill.ui.middleworktypeeditor.MiddleWorkTypeEditorViewModel;
 
-
-public class MiddleWorkTypeEditorVMFactory extends ViewModelProvider.NewInstanceFactory {
+public class EndWorkTypeEditorVMFactory extends ViewModelProvider.NewInstanceFactory {
     private final AppDatabase mDb;
     private final int mTaskId;
 
-    public MiddleWorkTypeEditorVMFactory(AppDatabase database, int taskId) {
+    public EndWorkTypeEditorVMFactory(AppDatabase database, int taskId) {
         mDb = database;
         mTaskId = taskId;
     }
