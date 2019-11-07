@@ -15,7 +15,7 @@ import com.example.showmethebill.databinding.EndCardViewBinding;
 import java.util.List;
 
 public class EndAdapter extends RecyclerView.Adapter<EndAdapter.EndViewHolder> {
-    public List<endWorkType> mEndList;
+    public List<EndWorkType> mEndList;
     private Context mContext;
     private EndAdapter.OnEndClickListener mOnEndClickListener;
     EndCardViewBinding binding;
@@ -33,7 +33,7 @@ public class EndAdapter extends RecyclerView.Adapter<EndAdapter.EndViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull EndAdapter.EndViewHolder holder, int position) {
-        endWorkType endWorkType = mEndList.get(position);
+        EndWorkType endWorkType = mEndList.get(position);
         holder.bind(endWorkType);
     }
 
@@ -48,21 +48,21 @@ public class EndAdapter extends RecyclerView.Adapter<EndAdapter.EndViewHolder> {
             this.binding = binding;
             itemView.setOnClickListener(this);
         }
-        public void bind(endWorkType item){
+        public void bind(EndWorkType item){
             binding.setEndType(item);
             binding.executePendingBindings();
         }
 
         @Override
         public void onClick(View v) {
-            endWorkType m = mEndList.get(getAdapterPosition());
+            EndWorkType m = mEndList.get(getAdapterPosition());
             mOnEndClickListener.onItemClick(v,m);
 
         }
     }
-    public List <endWorkType> getEndWorkTypeList(){return  mEndList;}
-    public void setAdaptorList(List<endWorkType> e){mEndList = e;}
+    public List <EndWorkType> getEndWorkTypeList(){return  mEndList;}
+    public void setAdaptorList(List<EndWorkType> e){mEndList = e;}
     public interface OnEndClickListener {
-        void onItemClick(View view, endWorkType item);
+        void onItemClick(View view, EndWorkType item);
     }
 }

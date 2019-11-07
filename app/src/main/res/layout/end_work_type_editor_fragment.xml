@@ -3,7 +3,7 @@
     <data>
         <variable
             name="end"
-            type="com.example.showmethebill.endWorkType"/>
+            type="com.example.showmethebill.EndWorkType"/>
         <variable
             name="fragment"
             type="com.example.showmethebill.ui.endworktypeeditor.EndWorkTypeEditorFragment"/>

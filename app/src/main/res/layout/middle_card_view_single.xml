@@ -3,7 +3,7 @@
     <data>
         <variable
             name="generalType"
-            type="com.example.showmethebill.middleWorkType"/>
+            type="com.example.showmethebill.MiddleWorkType"/>
         <variable
             name="controller"
             type="com.example.showmethebill.BillStarterViewModel" />

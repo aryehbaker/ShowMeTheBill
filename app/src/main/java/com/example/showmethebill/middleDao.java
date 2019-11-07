@@ -12,22 +12,22 @@ import androidx.room.Update;
 @Dao
 public interface middleDao {
 
-    @Query("SELECT id, workType, cost, generalId FROM MIDDLEWORKTYPE WHERE GENERALID = :id")
-    LiveData<List<com.example.showmethebill.middleWorkType>>getMatchingGeneralMiddleTypes(int id);
+    @Query("SELECT id, workType, cost, generalId FROM MiddleWorkType WHERE GENERALID = :id")
+    LiveData<List<MiddleWorkType>>getMatchingGeneralMiddleTypes(int id);
 
-    @Query("SELECT id, workType, cost, generalId FROM MIDDLEWORKTYPE WHERE ID = :id")
-    LiveData<com.example.showmethebill.middleWorkType> getMatchingMiddleTypes(int id);
+    @Query("SELECT id, workType, cost, generalId FROM MiddleWorkType WHERE ID = :id")
+    LiveData<MiddleWorkType> getMatchingMiddleTypes(int id);
 
-    @Query("SELECT id, workType, cost, generalId FROM MIDDLEWORKTYPE")
-    LiveData<List<com.example.showmethebill.middleWorkType>>getAllMiddleTypes();
+    @Query("SELECT id, workType, cost, generalId FROM MiddleWorkType")
+    LiveData<List<MiddleWorkType>>getAllMiddleTypes();
 
     @Insert
-    void insertMiddleType(com.example.showmethebill.middleWorkType... middleWorkType);
+    void insertMiddleType(MiddleWorkType... middleWorkType);
 
     @Update
-    void updateMiddleType(com.example.showmethebill.middleWorkType... middleWorkType);
+    void updateMiddleType(MiddleWorkType... middleWorkType);
 
     @Delete
-    void deleteMiddleType(com.example.showmethebill.middleWorkType... middleWorkType);
+    void deleteMiddleType(MiddleWorkType... middleWorkType);
 
 }

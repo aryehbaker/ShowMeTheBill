@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,8 +42,9 @@ public class BillStarterFragment extends Fragment {
     EndAdapter endAdapter;
     BillStarterViewModel billStarterViewModel;
     GeneralWorkTypeViewModel generalWorkTypeViewModel;
-    MiddleWorkTypeViewModel middleWorkTypeViewModel;
+    MiddleWorkTypeIdViewModel middleWorkTypeIdViewModel;
     EndWorkTypeIdViewModel endWorkTypeIdViewModel;
+    ViewModelProvider viewModelProvider;
 
     FloatingActionButton fab;
 
@@ -90,36 +92,45 @@ public class BillStarterFragment extends Fragment {
         endRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         billStarterViewModel = ViewModelProviders.of(this).get(BillStarterViewModel.class);
+        binding.setFragVM(billStarterViewModel);
 
         generalWorkTypeViewModel =
-                ViewModelProviders.of(this).get(GeneralWorkTypeViewModel.class);
+                 ViewModelProviders.of(this).get(GeneralWorkTypeViewModel.class);
+        binding.setGeneralVM(generalWorkTypeViewModel);
         generalWorkTypeViewModel.getGeneralWorkType()
-                .observe(getViewLifecycleOwner(), (List<generalWorkType> generalWorkTypes) -> {
-                    if(generalWorkTypes != null && !generalWorkTypes.isEmpty()){
-                        generalAdapter.setAdaptorList(generalWorkTypes);
+                .observe(getViewLifecycleOwner(), (List<GeneralWorkType> GeneralWorkTypes) -> {
+                    if(GeneralWorkTypes != null){
+                        generalAdapter.setAdaptorList(GeneralWorkTypes);
                         generalRecyclerView.setAdapter(generalAdapter);
+                        generalAdapter.notifyDataSetChanged();
                     }
 
         });
-        middleWorkTypeViewModel = ViewModelProviders.of(this)
-                .get(MiddleWorkTypeViewModel.class);
-        middleWorkTypeViewModel.getMiddleWorkTypeOfGeneralId()
+        middleWorkTypeIdViewModel =  ViewModelProviders.of(this)
+                .get(MiddleWorkTypeIdViewModel.class);
+        binding.setMiddleVM(middleWorkTypeIdViewModel);
+        middleWorkTypeIdViewModel.getMiddleWorkTypeOfGeneralId()
                 .observe(getViewLifecycleOwner(), middleWorkTypes -> {
                     if(middleWorkTypes != null && !middleWorkTypes.isEmpty()){
                         middleAdapter.setAdaptorList(middleWorkTypes);
                         middleRecyclerView.setAdapter(middleAdapter);
+                        middleAdapter.notifyDataSetChanged();
                     }
 
                 });
+
         endWorkTypeIdViewModel = ViewModelProviders.of(this)
                 .get(EndWorkTypeIdViewModel.class);
+        binding.setEndVM(endWorkTypeIdViewModel);
         endWorkTypeIdViewModel.getEndWorkTypeOfMiddleId()
                 .observe(getViewLifecycleOwner(),endWorkTypes -> {
                     if(endWorkTypes != null && !endWorkTypes.isEmpty()){
                         endAdapter.setAdaptorList(endWorkTypes);
                         endRecyclerView.setAdapter(endAdapter);
+                        endAdapter.notifyDataSetChanged();
                     }
                 });
+        binding.executePendingBindings();
 
 
         // Toolbar toolbar = findViewById(R.id.toolbar);
@@ -136,7 +147,7 @@ public class BillStarterFragment extends Fragment {
                     @Override
                     public void run() {
                         int position = viewHolder.getAdapterPosition();
-                        List<generalWorkType> tasks = generalAdapter.getGeneralWorkTypeList();
+                        List<GeneralWorkType> tasks = generalAdapter.getGeneralWorkTypeList();
                         mDb.generalDao().deleteGeneralType(tasks.get(position));
                     }
                 });
@@ -192,7 +203,7 @@ public class BillStarterFragment extends Fragment {
                     @Override
                     public void run() {
                         int position = viewHolder.getAdapterPosition();
-                        List<com.example.showmethebill.middleWorkType> tasks = middleAdapter.getMiddleWorkTypeList();
+                        List<MiddleWorkType> tasks = middleAdapter.getMiddleWorkTypeList();
                         mDb.middleDao().deleteMiddleType(tasks.get(position));
                     }
                 });
@@ -224,18 +235,18 @@ public class BillStarterFragment extends Fragment {
 
     }
 
-    public void onGeneralItemClick(View view, generalWorkType item) {
+    public void onGeneralItemClick(View view, GeneralWorkType item) {
         generalWorkTypeViewModel.setGeneralOneLiveData(item);
-        middleWorkTypeViewModel.setGeneralId(item.id);
+        middleWorkTypeIdViewModel.setGeneralId(item.id);
         billStarterViewModel.setRecyclerToMiddle();
 
     }
-    public void onMiddleItemClicked(View view,middleWorkType item){
-        middleWorkTypeViewModel.setMiddleOneLiveData(item);
+    public void onMiddleItemClicked(View view, MiddleWorkType item){
+        middleWorkTypeIdViewModel.setMiddleOneLiveData(item);
         endWorkTypeIdViewModel.setMiddleId(item.id);
         billStarterViewModel.setRecyclerToEnd();
     }
-    public void onEndItemClicked(View view,endWorkType item){
+    public void onEndItemClicked(View view, EndWorkType item){
 
     }
 

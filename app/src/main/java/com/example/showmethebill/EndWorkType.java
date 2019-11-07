@@ -3,14 +3,16 @@ package com.example.showmethebill;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
-@Entity (foreignKeys = @ForeignKey(entity = middleWorkType.class,
+@Entity (foreignKeys = @ForeignKey(entity = MiddleWorkType.class,
         parentColumns = "id",
         childColumns = "middleId",
-        onDelete = CASCADE))
-public class endWorkType {
+        onDelete = CASCADE),
+indices = {@Index("middleId")})
+public class EndWorkType {
     @PrimaryKey(autoGenerate = true)
    public int id;
    public int middleId;
@@ -18,7 +20,7 @@ public class endWorkType {
    public float cost;
 
 
-    public endWorkType(int id, int middleId, String workType, float cost) {
+    public EndWorkType(int id, int middleId, String workType, float cost) {
         this.id = id;
         this.middleId = middleId;
         this.workType = workType;
@@ -26,7 +28,7 @@ public class endWorkType {
 
     }
     @Ignore
-    public endWorkType( int middleId,String workType,Float cost){
+    public EndWorkType(int middleId, String workType, Float cost){
         this.middleId = middleId;
         this.workType = workType;
         this.cost = cost;

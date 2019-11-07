@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.showmethebill.databinding.GeneralCardViewBinding;
 
 public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralViewHolder> {
-   private List<generalWorkType> mGeneralList;
+   private List<GeneralWorkType> mGeneralList;
    private OnGeneralClickListener mOnGeneralClickListener;
    private Context mContext;
    public GeneralAdapter(Context context,OnGeneralClickListener onGeneralClickListener){
@@ -34,7 +34,7 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralV
 
     @Override
     public void onBindViewHolder(@NonNull GeneralAdapter.GeneralViewHolder holder, int position) {
-        generalWorkType generalWorkType = mGeneralList.get(position);
+        GeneralWorkType generalWorkType = mGeneralList.get(position);
         holder.bind(generalWorkType);
     }
 
@@ -49,7 +49,7 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralV
             this.binding = binding;
             itemView.setOnClickListener(this);
         }
-        public void bind (generalWorkType item) {
+        public void bind (GeneralWorkType item) {
             binding.setGeneralType(item);
             binding.executePendingBindings();
 
@@ -57,18 +57,17 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralV
 
         @Override
         public void onClick(View v) {
-            generalWorkType g = mGeneralList.get(getAdapterPosition());
+            GeneralWorkType g = mGeneralList.get(getAdapterPosition());
             mOnGeneralClickListener.onItemClick(v,g);
         }
     }
-    public void setAdaptorList(List<generalWorkType>list){
+    public void setAdaptorList(List<GeneralWorkType>list){
         mGeneralList = list;
-        notifyDataSetChanged();
     }
 
-    public List<generalWorkType> getGeneralWorkTypeList(){return mGeneralList; }
+    public List<GeneralWorkType> getGeneralWorkTypeList(){return mGeneralList; }
     public interface OnGeneralClickListener {
-        void onItemClick(View view, generalWorkType item);
+        void onItemClick(View view, GeneralWorkType item);
     }
 
 }

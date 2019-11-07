@@ -11,17 +11,17 @@ import androidx.room.Update;
 
 @Dao
 public interface generalDao {
-    @Query("SELECT id, WorkType,updated_at FROM GENERALWORKTYPE")
-    LiveData<List<generalWorkType>> loadGeneralTypes();
+    @Query("SELECT id, WorkType,updated_at FROM GeneralWorkType")
+    LiveData<List<GeneralWorkType>> loadGeneralTypes();
 
-    @Query("SELECT id, WorkType,updated_at FROM GENERALWORKTYPE WHERE ID = :id ")
-    LiveData<generalWorkType> getAGeneralWorkType(int id);
+    @Query("SELECT id, WorkType,updated_at FROM GeneralWorkType WHERE ID = :id ")
+    LiveData<GeneralWorkType> getAGeneralWorkType(int id);
     @Insert
-    void insertGeneralType(generalWorkType... generalWorkType);
+    void insertGeneralType(GeneralWorkType... generalWorkType);
 
     @Update
-    void updateGeneralType(generalWorkType... generalWorkType);
+    void updateGeneralType(GeneralWorkType... generalWorkType);
 
     @Delete
-    void  deleteGeneralType(generalWorkType... generalWorkType);
+    void  deleteGeneralType(GeneralWorkType... generalWorkType);
 }

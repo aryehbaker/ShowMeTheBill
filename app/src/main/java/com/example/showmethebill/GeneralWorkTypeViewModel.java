@@ -4,31 +4,30 @@ import android.app.Application;
 
 import java.util.List;
 
-import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 public class GeneralWorkTypeViewModel extends AndroidViewModel {
-    private LiveData<List<generalWorkType>> generalWorkTypeLiveData;
-    private MutableLiveData<generalWorkType> generalOneLiveData;
+    private AppDatabase appDatabase;
+    private MutableLiveData<GeneralWorkType> generalOneLiveData = new MutableLiveData<>();
+    private final LiveData<List<GeneralWorkType>> generalWorkTypeLiveData;
     public GeneralWorkTypeViewModel(Application application){
         super(application);
-        AppDatabase database = AppDatabase.getInstance(this.getApplication());
-        generalWorkTypeLiveData =
-                 database.generalDao().loadGeneralTypes();
+        appDatabase = AppDatabase.getInstance(getApplication());
+        generalWorkTypeLiveData = appDatabase.generalDao().loadGeneralTypes();
     }
 
 
 
-    public LiveData<List<generalWorkType>> getGeneralWorkType() {
+    public LiveData<List<GeneralWorkType>> getGeneralWorkType() {
         return generalWorkTypeLiveData;
     }
 
-    public void setGeneralOneLiveData(generalWorkType generalOneLiveData) {
-        this.generalOneLiveData.setValue(generalOneLiveData);
+    public void setGeneralOneLiveData(GeneralWorkType general) {
+        generalOneLiveData.setValue(general);
     }
-    public LiveData<generalWorkType>getGeneralOneLiveData(){
+    public LiveData<GeneralWorkType>getGeneralOneLiveData(){
         return generalOneLiveData;
     }
 }

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="VM"
-            type="com.example.showmethebill.generalWorkType"/>
+            type="com.example.showmethebill.GeneralWorkType"/>
         <variable
             name="fragment"
             type="com.example.showmethebill.ui.generalworktypeeditor.GeneralWorkTypeEditorFragment"/>

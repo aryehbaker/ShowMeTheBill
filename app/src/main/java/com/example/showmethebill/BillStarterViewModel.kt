@@ -1,6 +1,7 @@
 package com.example.showmethebill
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
 
 class BillStarterViewModel(application:Application) : AndroidViewModel(application ) {
@@ -11,13 +12,13 @@ class BillStarterViewModel(application:Application) : AndroidViewModel(applicati
 
 
     init {
-       setRecyclerToGeneral()
+       setterRecyclerToGeneral()
 
     }
     val getActiveRecycler:ActiveRecycler?  = _setFAB.value
     val getFAB:LiveData<ActiveRecycler>get()=_setFAB
 
-    fun setRecyclerToGeneral(){
+    fun setterRecyclerToGeneral(){
         _showOneGeneral.value = false
         _showOneMidddle.value = false
         _setFAB.value = ActiveRecycler.GENERAL

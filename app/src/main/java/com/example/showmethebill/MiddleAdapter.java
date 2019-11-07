@@ -15,7 +15,7 @@ import com.example.showmethebill.databinding.MiddleCardViewBinding;
 
 
 public class MiddleAdapter extends RecyclerView.Adapter<MiddleAdapter.MiddleViewHolder> {
-    public List<com.example.showmethebill.middleWorkType> mMiddleList;
+    public List<MiddleWorkType> mMiddleList;
     private Context mContext;
     private OnMiddleClickListener mOnMiddleClickListener;
     MiddleCardViewBinding binding;
@@ -33,7 +33,7 @@ public class MiddleAdapter extends RecyclerView.Adapter<MiddleAdapter.MiddleView
 
     @Override
     public void onBindViewHolder(@NonNull MiddleAdapter.MiddleViewHolder holder, int position) {
-        com.example.showmethebill.middleWorkType middleWorkType = mMiddleList.get(position);
+        MiddleWorkType middleWorkType = mMiddleList.get(position);
         holder.bind(middleWorkType);
     }
 
@@ -48,21 +48,21 @@ public class MiddleAdapter extends RecyclerView.Adapter<MiddleAdapter.MiddleView
             this.binding = binding;
             itemView.setOnClickListener(this);
         }
-        public void bind(com.example.showmethebill.middleWorkType item){
+        public void bind(MiddleWorkType item){
             binding.setMiddleType(item);
             binding.executePendingBindings();
         }
 
         @Override
         public void onClick(View v) {
-            middleWorkType m = mMiddleList.get(getAdapterPosition());
+            MiddleWorkType m = mMiddleList.get(getAdapterPosition());
             mOnMiddleClickListener.onItemClick(v,m);
 
         }
     }
-    public List <com.example.showmethebill.middleWorkType> getMiddleWorkTypeList(){return  mMiddleList;}
-    public void setAdaptorList(List<com.example.showmethebill.middleWorkType> e){mMiddleList = e;}
+    public List <MiddleWorkType> getMiddleWorkTypeList(){return  mMiddleList;}
+    public void setAdaptorList(List<MiddleWorkType> e){mMiddleList = e;}
     public interface OnMiddleClickListener {
-        void onItemClick(View view, com.example.showmethebill.middleWorkType item);
+        void onItemClick(View view, MiddleWorkType item);
     }
 }

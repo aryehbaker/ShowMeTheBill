@@ -11,12 +11,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 public class MiddleWorkTypeViewModel extends AndroidViewModel {
-    private LiveData<List<middleWorkType>> middleWorkTypeLiveData;
-    private LiveData<List<middleWorkType>> middleWorkTypeIdLiveData;
+    private LiveData<List<MiddleWorkType>> middleWorkTypeLiveData;
+    private LiveData<List<MiddleWorkType>> middleWorkTypeIdLiveData;
     private MutableLiveData<Integer> generalId = new MutableLiveData<>();
-    private MutableLiveData<middleWorkType>middleOneLiveData = new MutableLiveData<>();
+    private MutableLiveData<MiddleWorkType>middleOneLiveData = new MutableLiveData<>();
 
-    public ObservableField<com.example.showmethebill.middleWorkType> oWorkType;
+    public ObservableField<MiddleWorkType> oWorkType;
     public MiddleWorkTypeViewModel(Application application){
         super(application);
         AppDatabase database = AppDatabase.getInstance(this.getApplication());
@@ -28,18 +28,18 @@ public class MiddleWorkTypeViewModel extends AndroidViewModel {
 
 
 
-    public LiveData<List<middleWorkType>> getGeneralWorkType() {
+    public LiveData<List<MiddleWorkType>> getGeneralWorkType() {
 
         return middleWorkTypeLiveData;
     }
-    public LiveData<List<middleWorkType>> getMiddleWorkTypeOfGeneralId() {
+    public LiveData<List<MiddleWorkType>> getMiddleWorkTypeOfGeneralId() {
         return middleWorkTypeIdLiveData;
     }
     public void setGeneralId (int id){generalId.setValue(id);}
-    public void setMiddleOneLiveData (middleWorkType middleWorkType){
+    public void setMiddleOneLiveData (MiddleWorkType middleWorkType){
         middleOneLiveData.setValue(middleWorkType);
     }
-    public LiveData<middleWorkType> getMiddleOneLiveData(){
+    public LiveData<MiddleWorkType> getMiddleOneLiveData(){
         return middleOneLiveData;
     }
 

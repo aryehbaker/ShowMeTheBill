@@ -4,7 +4,7 @@
     <data>
         <variable
             name="middleType"
-            type="com.example.showmethebill.middleWorkType"/>
+            type="com.example.showmethebill.MiddleWorkType"/>
     </data>
 
     <androidx.cardview.widget.CardView

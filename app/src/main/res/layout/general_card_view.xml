@@ -1,55 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="generalType"
-            type="com.example.showmethebill.generalWorkType"/>
+            type="com.example.showmethebill.GeneralWorkType" />
 
 
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
->
+            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/general_work_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{generalType.WorkType}"
                 android:textSize="20sp"
-                tools:text="repair"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                                                            />
+                tools:text="repair" />
 
             <TextView
                 android:id="@+id/general_work_type_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:layout_marginStart="8dp"
                 android:text="@{Integer.toString(generalType.id)}"
-                tools:text="12345"
+                android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@id/general_work_type"
                 app:layout_constraintTop_toTopOf="@id/general_work_type"
-                android:layout_marginStart="8dp"
-                />
+                tools:text="12345" />
 
-            <include
-                android:id="@+id/general_buttons"
-                layout="@layout/recycler_buttons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/general_work_type" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

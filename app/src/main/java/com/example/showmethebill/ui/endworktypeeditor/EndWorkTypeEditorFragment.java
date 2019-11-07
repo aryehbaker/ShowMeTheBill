@@ -19,7 +19,7 @@ import com.example.showmethebill.AppDatabase;
 import com.example.showmethebill.AppExecutors;
 import com.example.showmethebill.R;
 import com.example.showmethebill.databinding.EndWorkTypeEditorFragmentBinding;
-import com.example.showmethebill.endWorkType;
+import com.example.showmethebill.EndWorkType;
 
 
 import java.util.Date;
@@ -86,9 +86,9 @@ public class EndWorkTypeEditorFragment extends Fragment {
                         = ViewModelProviders.of(this, factory)
                         .get(EndWorkTypeEditorViewModel.class);
 
-                viewModel.getEndWorkType().observe(this, new Observer<endWorkType>() {
+                viewModel.getEndWorkType().observe(getViewLifecycleOwner(), new Observer<EndWorkType>() {
                     @Override
-                    public void onChanged(@Nullable endWorkType taskEntry) {
+                    public void onChanged(@Nullable EndWorkType taskEntry) {
                         viewModel.getEndWorkType().removeObserver(this);
                         populateUI(taskEntry);
                     }
@@ -110,7 +110,7 @@ public class EndWorkTypeEditorFragment extends Fragment {
      *
      * @param task the taskEntry to populate the UI
      */
-    private void populateUI(endWorkType task) {
+    private void populateUI(EndWorkType task) {
         if (task == null) {
             return;
         }
@@ -130,7 +130,7 @@ public class EndWorkTypeEditorFragment extends Fragment {
         int generalId = Integer.valueOf(binding.endidmiddle.getText().toString());
         Date date = new Date();
 
-        final endWorkType task = new endWorkType(id, description, cost);
+        final EndWorkType task = new EndWorkType(id, description, cost);
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {

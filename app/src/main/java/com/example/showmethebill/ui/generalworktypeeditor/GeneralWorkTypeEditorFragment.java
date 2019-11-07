@@ -1,6 +1,7 @@
 package com.example.showmethebill.ui.generalworktypeeditor;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +22,12 @@ import android.widget.TextView;
 
 import com.example.showmethebill.AppDatabase;
 import com.example.showmethebill.AppExecutors;
+import com.example.showmethebill.GeneralWorkType;
 import com.example.showmethebill.R;
 import com.example.showmethebill.databinding.GeneralWorkTypeEditorFragmentBinding;
-import com.example.showmethebill.generalWorkType;
 
 import java.util.Date;
+import java.util.List;
 
 public class GeneralWorkTypeEditorFragment extends Fragment {
 
@@ -66,6 +69,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
         return binding.getRoot();
 
 
+
     }
 
     @Override
@@ -90,9 +94,9 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
                  final GeneralWorkTypeEditorViewModel viewModel
                         = ViewModelProviders.of(this, factory).get(GeneralWorkTypeEditorViewModel.class);
 
-                viewModel.getGeneralWorkType().observe(this, new Observer<generalWorkType>() {
+                viewModel.getGeneralWorkType().observe(getViewLifecycleOwner(), new Observer<GeneralWorkType>() {
                     @Override
-                    public void onChanged(@Nullable generalWorkType taskEntry) {
+                    public void onChanged(@Nullable GeneralWorkType taskEntry) {
                         viewModel.getGeneralWorkType().removeObserver(this);
                         populateUI(taskEntry);
                     }
@@ -114,7 +118,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
      *
      * @param task the taskEntry to populate the UI
      */
-    private void populateUI(generalWorkType task) {
+    private void populateUI(GeneralWorkType task) {
         if (task == null) {
             return;
         }
@@ -135,7 +139,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
         final int id = Integer.parseInt(ID);
         Date date = new Date();
 
-        final generalWorkType task = new generalWorkType(description, date);
+        final GeneralWorkType task = new GeneralWorkType(description, date);
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
@@ -147,6 +151,7 @@ public class GeneralWorkTypeEditorFragment extends Fragment {
                     task.setId(id);
                     mDb.generalDao().updateGeneralType(task);
                 }
+
                 getActivity().finish();
             }
         });

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">  <data>
     <variable
         name="endType"
-        type="com.example.showmethebill.endWorkType"/>
+        type="com.example.showmethebill.EndWorkType"/>
 
 </data>
 <com.google.android.material.card.MaterialCardView

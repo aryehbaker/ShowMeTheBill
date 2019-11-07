@@ -3,12 +3,14 @@
     <data>
         <variable
             name="generalType"
-            type="com.example.showmethebill.generalWorkType"/>
+            type="com.example.showmethebill.GeneralWorkType"/>
+
         <variable
-            name="controller"
-            type="com.example.showmethebill.BillStarterViewModel" />
+            name="onClick"
+            type="android.view.View.OnClickListener" />
     </data>
     <LinearLayout
+        android:onClick="@{onClick}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
          <include layout = "@layout/general_card_view"

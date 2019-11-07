@@ -3,7 +3,7 @@
     <data>
         <variable
             name="middle"
-            type="com.example.showmethebill.middleWorkType"/>
+            type="com.example.showmethebill.MiddleWorkType"/>
         <variable
             name="fragment"
             type="com.example.showmethebill.ui.middleworktypeeditor.MiddleWorkTypeEditorFragment"/>

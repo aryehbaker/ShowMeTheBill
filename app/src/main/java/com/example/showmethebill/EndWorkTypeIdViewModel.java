@@ -12,9 +12,9 @@ import androidx.lifecycle.Transformations;
 import java.util.List;
 
 public class EndWorkTypeIdViewModel extends AndroidViewModel {
-        private LiveData<List<endWorkType>> endWorkTypeIdLiveData;
+        private LiveData<List<EndWorkType>> endWorkTypeIdLiveData;
         private MutableLiveData<Integer> middleId = new MutableLiveData<>();
-        public ObservableField<endWorkType> oWorkType;
+        public ObservableField<EndWorkType> oWorkType;
         public EndWorkTypeIdViewModel(Application application){
             super(application);
             AppDatabase database = AppDatabase.getInstance(this.getApplication());
@@ -27,7 +27,7 @@ public class EndWorkTypeIdViewModel extends AndroidViewModel {
 
 
 
-        public LiveData<List<endWorkType>> getEndWorkTypeOfMiddleId() {
+        public LiveData<List<EndWorkType>> getEndWorkTypeOfMiddleId() {
             return endWorkTypeIdLiveData;
         }
         public void setMiddleId (int id){middleId.setValue(id);}

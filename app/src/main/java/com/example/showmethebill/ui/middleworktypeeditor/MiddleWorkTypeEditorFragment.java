@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.example.showmethebill.AppDatabase;
 import com.example.showmethebill.AppExecutors;
+import com.example.showmethebill.MiddleWorkType;
 import com.example.showmethebill.R;
 import com.example.showmethebill.databinding.MiddleWorkTypeEditorFragmentBinding;
 
@@ -85,9 +86,9 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
                 final MiddleWorkTypeEditorViewModel viewModel
                         = ViewModelProviders.of(this, factory).get(MiddleWorkTypeEditorViewModel.class);
 
-                viewModel.getMiddleWorkType().observe(this, new Observer<com.example.showmethebill.middleWorkType>() {
+                viewModel.getMiddleWorkType().observe(this, new Observer<MiddleWorkType>() {
                     @Override
-                    public void onChanged(@Nullable com.example.showmethebill.middleWorkType taskEntry) {
+                    public void onChanged(@Nullable MiddleWorkType taskEntry) {
                         viewModel.getMiddleWorkType().removeObserver(this);
                         populateUI(taskEntry);
                     }
@@ -108,7 +109,7 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
      *
      * @param task the taskEntry to populate the UI
      */
-    private void populateUI(com.example.showmethebill.middleWorkType task) {
+    private void populateUI(MiddleWorkType task) {
         if (task == null) {
             return;
         }
@@ -127,7 +128,7 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
         int  generalId = Integer.valueOf(binding.middleidgeneral.getText().toString());
         Date date = new Date();
 
-        final com.example.showmethebill.middleWorkType task = new com.example.showmethebill.middleWorkType(id, description,cost,generalId);
+        final MiddleWorkType task = new MiddleWorkType(id, description,cost,generalId);
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
