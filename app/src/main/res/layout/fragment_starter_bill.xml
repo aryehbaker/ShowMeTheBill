@@ -32,11 +32,16 @@
         android:animateLayoutChanges="true"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/single_general"
-            layout="@layout/general_card_view_single"
-            android:visibility="@{FragVM.getFAB != ActiveRecycler.GENERAL?View.VISIBLE:View.GONE}"
-            android:onClick="@{() -> FragVM.setterRecyclerToGeneral()}"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> FragVM.setterRecyclerToGeneral()}"
+            android:visibility="@{FragVM.getFAB != ActiveRecycler.GENERAL?View.VISIBLE:View.GONE}">
+
+            <include
+                android:id="@+id/single_general"
+                layout="@layout/general_card_view" />
+        </RelativeLayout>
         <!--     />-->
 
 
