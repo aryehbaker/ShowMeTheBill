@@ -86,7 +86,7 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
                 final MiddleWorkTypeEditorViewModel viewModel
                         = ViewModelProviders.of(this, factory).get(MiddleWorkTypeEditorViewModel.class);
 
-                viewModel.getMiddleWorkType().observe(this, new Observer<MiddleWorkType>() {
+                viewModel.getMiddleWorkType().observe(getViewLifecycleOwner(), new Observer<MiddleWorkType>() {
                     @Override
                     public void onChanged(@Nullable MiddleWorkType taskEntry) {
                         viewModel.getMiddleWorkType().removeObserver(this);

@@ -13,7 +13,7 @@ public class MiddleWorkTypeEditorViewModel extends ViewModel {
     public ObservableField<MiddleWorkType> oWorkType;
     public MiddleWorkTypeEditorViewModel(){super();}
     public MiddleWorkTypeEditorViewModel(AppDatabase database, int id) {
-        middleWorkTypeLiveData = database.middleDao().getMatchingMiddleTypes(id);
+        middleWorkTypeLiveData = database.middleDao().getMatchingMiddleType(id);
     }
 
 

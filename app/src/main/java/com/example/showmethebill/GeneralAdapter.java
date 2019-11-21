@@ -48,6 +48,7 @@ public class GeneralAdapter extends RecyclerView.Adapter<GeneralAdapter.GeneralV
             super(binding.getRoot());
             this.binding = binding;
             itemView.setOnClickListener(this);
+            binding.generalAdd.setOnClickListener(this);
         }
         public void bind (GeneralWorkType item) {
             binding.setGeneralType(item);

@@ -1,6 +1,7 @@
 package com.example.showmethebill;
 
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -35,8 +36,9 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class BillStarterFragment extends Fragment {
     FragmentStarterBillBinding binding;
     Context context;
+    Application application;
     private AppDatabase mDb;
-    RecyclerView generalRecyclerView,middleRecyclerView,endRecyclerView;
+    RecyclerView generalRecyclerView, middleRecyclerView, endRecyclerView;
     GeneralAdapter generalAdapter;
     MiddleAdapter middleAdapter;
     EndAdapter endAdapter;
@@ -49,9 +51,6 @@ public class BillStarterFragment extends Fragment {
     FloatingActionButton fab;
 
 
-
-
-
     public BillStarterFragment() {
         // Required empty public constructor
     }
@@ -60,9 +59,9 @@ public class BillStarterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-    binding = DataBindingUtil.inflate(
-            inflater,R.layout.fragment_starter_bill,container,false);
-    binding.setLifecycleOwner(this);
+        binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_starter_bill, container, false);
+        binding.setLifecycleOwner(this);
         return binding.getRoot();
     }
 
@@ -70,48 +69,49 @@ public class BillStarterFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         context = getContext();
+        application = AndroidApplication.Companion.getInstance();
 
 
         generalRecyclerView = binding.reGeneral;
         generalAdapter = new GeneralAdapter(context, (view, item) -> {
-            Log.d(TAG, "onItemClick: "+ item.WorkType);
-            onGeneralItemClick(view,item);
+            Log.d(TAG, "onItemClick: " + item.WorkType);
+            onGeneralItemClick(view, item);
         });
         middleRecyclerView = binding.reMiddle;
         middleAdapter = new MiddleAdapter(context, (view, item) -> {
-            Log.d(TAG, "onItemClick: "+ item.WorkType);
+            Log.d(TAG, "onItemClick: " + item.WorkType);
             onMiddleItemClicked(view, item);
         });
         endRecyclerView = binding.reEnd;
-        endAdapter = new EndAdapter(context,(view, item) ->{
+        endAdapter = new EndAdapter(context, (view, item) -> {
             Log.d(TAG, "onEndClick" + item.workType);
-            onEndItemClicked(view,item);
+            onEndItemClicked(view, item);
         });
         generalRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         middleRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         endRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        billStarterViewModel = ViewModelProviders.of(this).get(BillStarterViewModel.class);
+        billStarterViewModel = ViewModelProviders.of(getActivity()).get(BillStarterViewModel.class);
         binding.setFragVM(billStarterViewModel);
 
         generalWorkTypeViewModel =
-                 ViewModelProviders.of(this).get(GeneralWorkTypeViewModel.class);
+                ViewModelProviders.of(getActivity()).get(GeneralWorkTypeViewModel.class);
         binding.setGeneralVM(generalWorkTypeViewModel);
         generalWorkTypeViewModel.getGeneralWorkType()
-                .observe(getViewLifecycleOwner(), (List<GeneralWorkType> GeneralWorkTypes) -> {
-                    if(GeneralWorkTypes != null){
+                .observe(getViewLifecycleOwner(), GeneralWorkTypes -> {
+                    if (GeneralWorkTypes != null) {
                         generalAdapter.setAdaptorList(GeneralWorkTypes);
                         generalRecyclerView.setAdapter(generalAdapter);
                         generalAdapter.notifyDataSetChanged();
                     }
 
-        });
-        middleWorkTypeIdViewModel =  ViewModelProviders.of(this)
+                });
+        middleWorkTypeIdViewModel = ViewModelProviders.of(getActivity())
                 .get(MiddleWorkTypeIdViewModel.class);
         binding.setMiddleVM(middleWorkTypeIdViewModel);
-        middleWorkTypeIdViewModel.getMiddleWorkTypeOfGeneralId()
+        binding.getMiddleVM().getMiddleWorkTypeOfGeneralId()
                 .observe(getViewLifecycleOwner(), middleWorkTypes -> {
-                    if(middleWorkTypes != null && !middleWorkTypes.isEmpty()){
+                    if (middleWorkTypes != null && !middleWorkTypes.isEmpty()) {
                         middleAdapter.setAdaptorList(middleWorkTypes);
                         middleRecyclerView.setAdapter(middleAdapter);
                         middleAdapter.notifyDataSetChanged();
@@ -119,12 +119,12 @@ public class BillStarterFragment extends Fragment {
 
                 });
 
-        endWorkTypeIdViewModel = ViewModelProviders.of(this)
+        endWorkTypeIdViewModel = ViewModelProviders.of(getActivity())
                 .get(EndWorkTypeIdViewModel.class);
         binding.setEndVM(endWorkTypeIdViewModel);
         endWorkTypeIdViewModel.getEndWorkTypeOfMiddleId()
-                .observe(getViewLifecycleOwner(),endWorkTypes -> {
-                    if(endWorkTypes != null && !endWorkTypes.isEmpty()){
+                .observe(getViewLifecycleOwner(), endWorkTypes -> {
+                    if (endWorkTypes != null && !endWorkTypes.isEmpty()) {
                         endAdapter.setAdaptorList(endWorkTypes);
                         endRecyclerView.setAdapter(endAdapter);
                         endAdapter.notifyDataSetChanged();
@@ -152,7 +152,8 @@ public class BillStarterFragment extends Fragment {
                     }
                 });
             }
-        })*/SwipeHelper swipeHelper = new SwipeHelper(context, generalRecyclerView) {
+        })*/
+        SwipeHelper swipeHelper = new SwipeHelper(context, generalRecyclerView) {
             @Override
             public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons) {
                 underlayButtons.add(new SwipeHelper.UnderlayButton(
@@ -191,7 +192,7 @@ public class BillStarterFragment extends Fragment {
                 ));
             }
         };//.attachToRecyclerView(generalRecyclerView);
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -212,21 +213,23 @@ public class BillStarterFragment extends Fragment {
         fab = binding.fab;
         fab.setOnClickListener(view -> {
             BillStarterViewModel.ActiveRecycler activeRecycler =
-                    billStarterViewModel.getGetActiveRecycler();
-            if (activeRecycler == null)return;
-            switch(activeRecycler){
+            binding.getFragVM().getGetFAB().getValue();
+            if (activeRecycler == null) return;
+            switch (activeRecycler) {
                 case GENERAL:
 
                     Intent intent = new Intent(context,
-                        GeneralWorkTypeEditor.class);
+                            GeneralWorkTypeEditor.class);
                     startActivity(intent);
                     break;
-                case MIDDLE:Intent intent1 = new Intent(context,
-                        MiddleWorkTypeEditor.class);
+                case MIDDLE:
+                    Intent intent1 = new Intent(context,
+                            MiddleWorkTypeEditor.class);
                     startActivity(intent1);
                     break;
-                case END:Intent intent2 = new Intent(context,
-                        EndWorkTypeEditor.class);
+                case END:
+                    Intent intent2 = new Intent(context,
+                            EndWorkTypeEditor.class);
                     startActivity(intent2);
             }
 
@@ -236,21 +239,28 @@ public class BillStarterFragment extends Fragment {
     }
 
     public void onGeneralItemClick(View view, GeneralWorkType item) {
-        generalWorkTypeViewModel.setGeneralOneLiveData(item);
-        middleWorkTypeIdViewModel.setGeneralId(item.id);
-        billStarterViewModel.setRecyclerToMiddle();
+        if (view.getId() == R.id.general_add) {
+            Log.i("general", "you pressed add");
+        } else {
+            generalWorkTypeViewModel.setGeneralOneLiveData(item);
+            middleWorkTypeIdViewModel.setGeneralId(item.id);
+            billStarterViewModel.setRecyclerToMiddle();
+            binding.billStarterMainLayout.invalidate();
+            binding.billStarterMainLayout.requestLayout();
+        }
+
 
     }
-    public void onMiddleItemClicked(View view, MiddleWorkType item){
+
+    public void onMiddleItemClicked(View view, MiddleWorkType item) {
         middleWorkTypeIdViewModel.setMiddleOneLiveData(item);
         endWorkTypeIdViewModel.setMiddleId(item.id);
         billStarterViewModel.setRecyclerToEnd();
     }
-    public void onEndItemClicked(View view, EndWorkType item){
+
+    public void onEndItemClicked(View view, EndWorkType item) {
 
     }
-
-
 
 
 }

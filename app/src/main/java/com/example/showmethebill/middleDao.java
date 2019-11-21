@@ -16,7 +16,7 @@ public interface middleDao {
     LiveData<List<MiddleWorkType>>getMatchingGeneralMiddleTypes(int id);
 
     @Query("SELECT id, workType, cost, generalId FROM MiddleWorkType WHERE ID = :id")
-    LiveData<MiddleWorkType> getMatchingMiddleTypes(int id);
+    LiveData<MiddleWorkType> getMatchingMiddleType(int id);
 
     @Query("SELECT id, workType, cost, generalId FROM MiddleWorkType")
     LiveData<List<MiddleWorkType>>getAllMiddleTypes();
