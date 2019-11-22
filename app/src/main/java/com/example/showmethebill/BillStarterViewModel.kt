@@ -4,35 +4,31 @@ import android.app.Application
 import android.view.View
 import androidx.lifecycle.*
 
-class BillStarterViewModel(application:Application) : AndroidViewModel(application ) {
-    private val _showOneGeneral = MutableLiveData<Boolean>()
-    private val _showOneMidddle = MutableLiveData<Boolean>()
-    enum class ActiveRecycler {GENERAL,MIDDLE,END}
-    private val _setFAB = MutableLiveData<ActiveRecycler>()
+class BillStarterViewModel(application: Application) : AndroidViewModel(application) {
+    enum class ActiveRecycler { GENERAL, MIDDLE, END }
+
+    private val _setRecycler = MutableLiveData<ActiveRecycler>()
 
 
     init {
-       setterRecyclerToGeneral()
+        setRecyclerToGeneral()
 
     }
-    val getActiveRecycler:ActiveRecycler?  = _setFAB.value
-    val getFAB:LiveData<ActiveRecycler>get()=_setFAB
 
-    fun setterRecyclerToGeneral(){
-        _showOneGeneral.value = false
-        _showOneMidddle.value = false
-        _setFAB.value = ActiveRecycler.GENERAL
+    val getActiveRecycler: ActiveRecycler? = _setRecycler.value
+    val getActiveRecyclerLiveData: LiveData<ActiveRecycler> get() = _setRecycler
+
+    fun setRecyclerToGeneral() {
+        _setRecycler.value = ActiveRecycler.GENERAL
     }
-    fun setRecyclerToMiddle(){
-        _showOneGeneral.value = true
-        _showOneMidddle.value = false
-        _setFAB.value = ActiveRecycler.MIDDLE
+
+    fun setRecyclerToMiddle() {
+        _setRecycler.value = ActiveRecycler.MIDDLE
 
     }
-    fun setRecyclerToEnd(){
-        _showOneGeneral.value = true
-        _showOneMidddle.value = true
-        _setFAB.value = ActiveRecycler.END
+
+    fun setRecyclerToEnd() {
+        _setRecycler.value = ActiveRecycler.END
 
     }
 

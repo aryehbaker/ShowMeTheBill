@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -111,7 +112,7 @@ public class BillStarterFragment extends Fragment {
         binding.setMiddleVM(middleWorkTypeIdViewModel);
         binding.getMiddleVM().getMiddleWorkTypeOfGeneralId()
                 .observe(getViewLifecycleOwner(), middleWorkTypes -> {
-                    if (middleWorkTypes != null && !middleWorkTypes.isEmpty()) {
+                    if (middleWorkTypes != null ) {
                         middleAdapter.setAdaptorList(middleWorkTypes);
                         middleRecyclerView.setAdapter(middleAdapter);
                         middleAdapter.notifyDataSetChanged();
@@ -124,7 +125,7 @@ public class BillStarterFragment extends Fragment {
         binding.setEndVM(endWorkTypeIdViewModel);
         endWorkTypeIdViewModel.getEndWorkTypeOfMiddleId()
                 .observe(getViewLifecycleOwner(), endWorkTypes -> {
-                    if (endWorkTypes != null && !endWorkTypes.isEmpty()) {
+                    if (endWorkTypes != null ) {
                         endAdapter.setAdaptorList(endWorkTypes);
                         endRecyclerView.setAdapter(endAdapter);
                         endAdapter.notifyDataSetChanged();
@@ -212,19 +213,20 @@ public class BillStarterFragment extends Fragment {
         }).attachToRecyclerView(middleRecyclerView);
         fab = binding.fab;
         fab.setOnClickListener(view -> {
-            BillStarterViewModel.ActiveRecycler activeRecycler =
-            binding.getFragVM().getGetFAB().getValue();
-            if (activeRecycler == null) return;
-            switch (activeRecycler) {
+            LiveData<BillStarterViewModel.ActiveRecycler> activeRecycler =
+            binding.getFragVM().getGetActiveRecyclerLiveData();
+            if (activeRecycler.getValue() == null) return;
+            switch (activeRecycler.getValue()) {
                 case GENERAL:
 
                     Intent intent = new Intent(context,
                             GeneralWorkTypeEditor.class);
-                    startActivity(intent);
+                                        startActivity(intent);
                     break;
                 case MIDDLE:
                     Intent intent1 = new Intent(context,
                             MiddleWorkTypeEditor.class);
+                    intent1.putExtra("generalId",binding.getGeneralVM().getGeneralOneLiveData().getValue().id);
                     startActivity(intent1);
                     break;
                 case END:
@@ -245,8 +247,8 @@ public class BillStarterFragment extends Fragment {
             generalWorkTypeViewModel.setGeneralOneLiveData(item);
             middleWorkTypeIdViewModel.setGeneralId(item.id);
             billStarterViewModel.setRecyclerToMiddle();
-            binding.billStarterMainLayout.invalidate();
-            binding.billStarterMainLayout.requestLayout();
+ //           binding.billStarterMainLayout.invalidate();
+ //           binding.billStarterMainLayout.requestLayout();
         }
 
 

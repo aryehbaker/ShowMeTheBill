@@ -69,12 +69,18 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
 
         // TODO: Use the ViewModel
         mDb = AppDatabase.getInstance(getActivity().getApplicationContext());
-
+        ;
+        int generalId;
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
             mTaskId = savedInstanceState.getInt(INSTANCE_TASK_ID, DEFAULT_TASK_ID);
         }
 
         Intent intent = getActivity().getIntent();
+        if(intent != null && intent.hasExtra("generalId")){
+            generalId= intent.getIntExtra("generalId",0);
+            MiddleWorkType middleWorkType = new MiddleWorkType("",0,generalId);
+            populateUI(middleWorkType);
+        }
         if (intent != null && intent.hasExtra(EXTRA_TASK_ID)) {
             binding.middleAdd.setText(R.string.update_button);
             if (mTaskId == DEFAULT_TASK_ID) {
@@ -88,8 +94,10 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
 
                 viewModel.getMiddleWorkType().observe(getViewLifecycleOwner(), new Observer<MiddleWorkType>() {
                     @Override
-                    public void onChanged(@Nullable MiddleWorkType taskEntry) {
+                    public void onChanged( @Nullable MiddleWorkType taskEntry) {
                         viewModel.getMiddleWorkType().removeObserver(this);
+                        taskEntry.generalId = intent.getIntExtra("generalId",0);
+
                         populateUI(taskEntry);
                     }
                 });

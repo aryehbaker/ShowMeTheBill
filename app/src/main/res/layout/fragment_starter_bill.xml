@@ -26,72 +26,77 @@
             type="com.example.showmethebill.GeneralWorkTypeViewModel" />
     </data>
 
-    <LinearLayout
-        android:id="@+id/bill_starter_main_layout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> FragVM.setterRecyclerToGeneral()}"
-            android:visibility="@{FragVM.getFAB != ActiveRecycler.GENERAL?View.VISIBLE:View.GONE}">
-
-            <include
-                android:id="@+id/single_general"
-                layout="@layout/general_card_view"
-                bind:generalType="@{GeneralVM.getGeneralOneLiveData}" />
-        </RelativeLayout>
-        <!--     />-->
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/re_general"
+        <LinearLayout
+            android:id="@+id/bill_starter_main_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
 
-            android:visibility="@{FragVM.getFAB == ActiveRecycler.GENERAL?View.VISIBLE:View.GONE}">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> FragVM.setRecyclerToGeneral()}"
+                android:visibility="@{FragVM.getActiveRecyclerLiveData != ActiveRecycler.GENERAL?View.VISIBLE:View.GONE}">
 
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> FragVM.setRecyclerToMiddle()}"
-            android:visibility="@{FragVM.getFAB == ActiveRecycler.END?View.VISIBLE:View.GONE}">
-
-            <include
-                android:id="@+id/single_middle"
-                layout="@layout/middle_card_view"
-                bind:middleType="@{MiddleVM.getMiddleOneLiveData}" />
-        </RelativeLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/re_middle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{FragVM.getFAB == ActiveRecycler.MIDDLE?View.VISIBLE:View.GONE}"
-
-            >
+                <include
+                    android:id="@+id/single_general"
+                    layout="@layout/general_card_view"
+                    bind:generalType="@{GeneralVM.getGeneralOneLiveData}" />
+            </RelativeLayout>
+            <!--     />-->
 
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/re_general"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/re_end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{FragVM.getFAB == ActiveRecycler.END?View.VISIBLE:View.GONE}"
+                android:visibility="@{FragVM.getActiveRecyclerLiveData == ActiveRecycler.GENERAL?View.VISIBLE:View.GONE}">
 
-            >
 
-        </androidx.recyclerview.widget.RecyclerView>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> FragVM.setRecyclerToMiddle()}"
+                android:visibility="@{FragVM.getActiveRecyclerLiveData == ActiveRecycler.END?View.VISIBLE:View.GONE}">
+
+                <include
+                    android:id="@+id/single_middle"
+                    layout="@layout/middle_card_view"
+                    bind:middleType="@{MiddleVM.getMiddleOneLiveData}" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/re_middle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{FragVM.getActiveRecyclerLiveData == ActiveRecycler.MIDDLE?View.VISIBLE:View.GONE}"
+
+                >
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/re_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{FragVM.getActiveRecyclerLiveData == ActiveRecycler.END?View.VISIBLE:View.GONE}"
+
+                >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+        </LinearLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
@@ -100,8 +105,7 @@
             android:layout_margin="@dimen/fab_margin"
             app:srcCompat="@android:drawable/ic_input_add" />
 
-        </FrameLayout>
-    </LinearLayout>
 
+    </FrameLayout>
 
 </layout>
