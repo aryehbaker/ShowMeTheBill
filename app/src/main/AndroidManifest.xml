@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EndViewTypeEditor"></activity>
+        <activity android:name=".EndWorkTypeEditor" />
         <activity android:name=".MiddleWorkTypeEditor" />
         <activity android:name=".GeneralWorkTypeEditor" />
         <activity

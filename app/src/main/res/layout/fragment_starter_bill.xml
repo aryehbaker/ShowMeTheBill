@@ -86,7 +86,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/re_end"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="@{FragVM.getActiveRecyclerLiveData == ActiveRecycler.END?View.VISIBLE:View.GONE}"
 

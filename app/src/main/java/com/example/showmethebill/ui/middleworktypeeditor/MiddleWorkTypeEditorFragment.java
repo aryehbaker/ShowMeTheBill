@@ -24,7 +24,6 @@ import com.example.showmethebill.databinding.MiddleWorkTypeEditorFragmentBinding
 import java.util.Date;
 
 
-
 public class MiddleWorkTypeEditorFragment extends Fragment {
 
     private MiddleWorkTypeEditorViewModel mViewModel;
@@ -41,6 +40,7 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
     public static MiddleWorkTypeEditorFragment newInstance() {
         return new MiddleWorkTypeEditorFragment();
     }
+
     MiddleWorkTypeEditorFragmentBinding binding;
 
     private int mTaskId = DEFAULT_TASK_ID;
@@ -49,18 +49,17 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
     private AppDatabase mDb;
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding =
                 DataBindingUtil.inflate(
-                        inflater,R.layout.middle_work_type_editor_fragment,container,false);
+                        inflater, R.layout.middle_work_type_editor_fragment, container, false);
 
         mViewModel = ViewModelProviders.of(this).get(MiddleWorkTypeEditorViewModel.class);
         binding.setFragment(this);
-       return binding.getRoot();
+        return binding.getRoot();
     }
 
     @Override
@@ -76,11 +75,6 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
         }
 
         Intent intent = getActivity().getIntent();
-        if(intent != null && intent.hasExtra("generalId")){
-            generalId= intent.getIntExtra("generalId",0);
-            MiddleWorkType middleWorkType = new MiddleWorkType("",0,generalId);
-            populateUI(middleWorkType);
-        }
         if (intent != null && intent.hasExtra(EXTRA_TASK_ID)) {
             binding.middleAdd.setText(R.string.update_button);
             if (mTaskId == DEFAULT_TASK_ID) {
@@ -94,17 +88,21 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
 
                 viewModel.getMiddleWorkType().observe(getViewLifecycleOwner(), new Observer<MiddleWorkType>() {
                     @Override
-                    public void onChanged( @Nullable MiddleWorkType taskEntry) {
+                    public void onChanged(@Nullable MiddleWorkType taskEntry) {
                         viewModel.getMiddleWorkType().removeObserver(this);
-                        taskEntry.generalId = intent.getIntExtra("generalId",0);
 
                         populateUI(taskEntry);
                     }
                 });
             }
+        } else if (intent != null && intent.hasExtra("generalId")) {
+            generalId = intent.getIntExtra("generalId", 0);
+            MiddleWorkType middleWorkType = new MiddleWorkType("", 0, generalId);
+            populateUI(middleWorkType);
         }
-//        initViews();
+        //        initViews();
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putInt(INSTANCE_TASK_ID, mTaskId);
@@ -127,16 +125,17 @@ public class MiddleWorkTypeEditorFragment extends Fragment {
 
 
     }
+
     public void onSaveButtonClicked(View view) {
         String description = binding.middleworktype.getText().toString();
         String ID = binding.middleid.getText().toString();
         final int id = Integer.parseInt(ID);
         String Cost = binding.middleWorktypeCost.getText().toString();
         float cost = Float.valueOf(Cost);
-        int  generalId = Integer.valueOf(binding.middleidgeneral.getText().toString());
+        int generalId = Integer.valueOf(binding.middleidgeneral.getText().toString());
         Date date = new Date();
 
-        final MiddleWorkType task = new MiddleWorkType(id, description,cost,generalId);
+        final MiddleWorkType task = new MiddleWorkType(id, description, cost, generalId);
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {

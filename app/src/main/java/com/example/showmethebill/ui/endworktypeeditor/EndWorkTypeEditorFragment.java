@@ -55,7 +55,7 @@ public class EndWorkTypeEditorFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding =
                 DataBindingUtil.inflate(
-                        inflater, R.layout.middle_work_type_editor_fragment, container, false);
+                        inflater, R.layout.end_work_type_editor_fragment, container, false);
 
         mViewModel = ViewModelProviders.of(this).get(EndWorkTypeEditorViewModel.class);
         binding.setFragment(this);
@@ -68,7 +68,7 @@ public class EndWorkTypeEditorFragment extends Fragment {
 
         // TODO: Use the ViewModel
         mDb = AppDatabase.getInstance(getActivity().getApplicationContext());
-
+        int middleId;
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
             mTaskId = savedInstanceState.getInt(INSTANCE_TASK_ID, DEFAULT_TASK_ID);
         }
@@ -94,6 +94,10 @@ public class EndWorkTypeEditorFragment extends Fragment {
                     }
                 });
             }
+        } else if (intent != null && intent.hasExtra("middleId")) {
+            middleId = intent.getIntExtra("middleId", 0);
+            EndWorkType endWorkType = new EndWorkType(middleId, "", 0f);
+            populateUI(endWorkType);
         }
 //        initViews();
     }
@@ -125,12 +129,11 @@ public class EndWorkTypeEditorFragment extends Fragment {
         String description = binding.endworktype.getText().toString();
         String ID = binding.endid.getText().toString();
         final int id = Integer.parseInt(ID);
+         final int middle = Integer.parseInt(binding.endidmiddle.getText().toString());
         String Cost = binding.endWorktypeCost.getText().toString();
         float cost = Float.valueOf(Cost);
-        int generalId = Integer.valueOf(binding.endidmiddle.getText().toString());
-        Date date = new Date();
 
-        final EndWorkType task = new EndWorkType(id, description, cost);
+        final EndWorkType task = new EndWorkType(middle, description, cost);
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {

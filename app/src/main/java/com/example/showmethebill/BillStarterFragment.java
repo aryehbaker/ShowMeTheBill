@@ -70,7 +70,7 @@ public class BillStarterFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         context = getContext();
-        application = AndroidApplication.Companion.getInstance();
+
 
 
         generalRecyclerView = binding.reGeneral;
@@ -232,6 +232,7 @@ public class BillStarterFragment extends Fragment {
                 case END:
                     Intent intent2 = new Intent(context,
                             EndWorkTypeEditor.class);
+                    intent2.putExtra("middleId",binding.getMiddleVM().getMiddleOneLiveData().getValue().id);
                     startActivity(intent2);
             }
 

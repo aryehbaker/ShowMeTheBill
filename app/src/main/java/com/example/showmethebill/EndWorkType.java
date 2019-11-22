@@ -7,17 +7,18 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
-@Entity (foreignKeys = @ForeignKey(entity = MiddleWorkType.class,
+
+@Entity(foreignKeys = @ForeignKey(entity = MiddleWorkType.class,
         parentColumns = "id",
         childColumns = "middleId",
         onDelete = CASCADE),
-indices = {@Index("middleId")})
+        indices = {@Index("middleId")})
 public class EndWorkType {
     @PrimaryKey(autoGenerate = true)
-   public int id;
-   public int middleId;
-   public String workType;
-   public float cost;
+    public int id;
+    public int middleId;
+    public String workType;
+    public float cost;
 
 
     public EndWorkType(int id, int middleId, String workType, float cost) {
@@ -27,8 +28,9 @@ public class EndWorkType {
         this.cost = cost;
 
     }
+
     @Ignore
-    public EndWorkType(int middleId, String workType, Float cost){
+    public EndWorkType(int middleId, String workType, float cost) {
         this.middleId = middleId;
         this.workType = workType;
         this.cost = cost;
@@ -67,4 +69,4 @@ public class EndWorkType {
         return cost;
     }
 
- }
+}
